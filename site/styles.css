@@ -214,10 +214,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .sec.tool .grid{row-gap:56px}
 .tool-lead{grid-column:1 / 4;margin-top:-32px}
 /* legenda: coluna da direita, na base do bloco título + texto de apoio */
-.tlegend{grid-column:5;grid-row:1 / span 2;align-self:start;padding-top:clamp(12px,1.8vw,22px);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-.tl-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
-.tl-i{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
-.tl-i i{width:10px;height:10px;border-radius:50%}
+.tlegend{grid-column:5;grid-row:1 / span 2;align-self:start;padding-top:clamp(12px,1.8vw,22px);display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.tl-label{font-size:13.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.tl-i{display:inline-flex;align-items:center;gap:10px;font-size:15px;color:var(--mute)}
+.tl-i i{width:12px;height:12px;border-radius:50%}
 .tbar{display:flex;gap:3px;height:4px;overflow:hidden;border-radius:2px}
 .tbar i{display:block;min-width:3px}
 .tbar-legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin:8px 0 0;font-size:12.5px;color:var(--mute)}
