@@ -152,7 +152,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* fotos vêm de fundos e enquadramentos diferentes (cada campanha manda a sua); encolher ~14%
    dentro do círculo dá um respiro consistente e esconde a maior parte do fundo variado de cada uma */
 .avatar img{position:absolute;inset:7%;width:86%;height:86%;border-radius:50%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.05)}
-.card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:32px;background:var(--card);border:1px solid rgba(21,7,76,.07);border-radius:4px;transition:border-color .2s ease}
+.card{position:relative;display:flex;flex-direction:column;height:390px;padding:32px;background:var(--card);border:1px solid rgba(21,7,76,.07);border-radius:4px;transition:border-color .2s ease}
 .card:hover{border-color:var(--acc)}
 .card:has(a:focus-visible){outline:2px solid var(--acc);outline-offset:3px}
 .card .avatar{width:72px;height:72px;font-size:24px}
@@ -220,12 +220,16 @@ button{font:inherit;color:inherit;cursor:pointer}
 .tl-i i{width:10px;height:10px;border-radius:50%}
 .tbar{display:flex;gap:3px;height:4px;overflow:hidden;border-radius:2px}
 .tbar i{display:block;min-width:3px}
-.card-n{margin-top:12px;font-size:14px;line-height:1.4;color:var(--mute)}
+.tbar-legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin:8px 0 0;font-size:12.5px;color:var(--mute)}
+.tbar-item{display:inline-flex;align-items:center;gap:5px}
+.tbar-item i{width:7px;height:7px;border-radius:50%;flex:none}
+.tbar-item b{color:var(--ink);font-weight:700}
+.card-n{margin-top:auto;padding-top:12px;font-size:14px;line-height:1.4;color:var(--mute)}
 .card-n b{color:var(--ink);font-weight:700}
 .card-n .am{margin-left:4px;font-size:12px;opacity:.85}
-.card-none{font-size:14px;line-height:1.4;color:var(--mute)}
+.card-none{margin-top:auto;font-size:14px;line-height:1.4;color:var(--mute)}
 
-.card-who{min-width:0;margin-top:auto;padding-top:36px}
+.card-who{min-width:0;margin-top:24px}
 .card-data{margin-top:28px}
 
 /* ---------- A2: números ---------- */
@@ -302,8 +306,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   .cards,.nums-grid,.temas-grid{grid-template-columns:1fr}
   .tema{min-height:0;padding:28px}
   .filters .status{margin-left:0;width:100%}
-  .card{min-height:0;padding:28px}
-  .card-who{padding-top:28px}
+  .card{padding:28px}
   .acc-selo{grid-template-columns:1fr;gap:6px}
 }
 

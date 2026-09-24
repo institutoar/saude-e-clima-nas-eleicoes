@@ -73,16 +73,21 @@ $('tlegend').innerHTML = '<span class="tl-label">Trechos por tema</span>' + D.te
 
 /* filete de temas: proporção dos trechos de cada candidatura por tema (contagem oficial, completa) */
 function dadosCard(c){
-  if(c.estado === 'sem_ocorrencia') return '<p class="card-none">Nenhum dos quatro temas</p>';
+  if(c.estado === 'sem_ocorrencia') return {bars:'', resumo:'<p class="card-none">Nenhum dos quatro temas</p>'};
   const porTema = D.temas.map(t => ({t, n:c.contagens[t.id]})).filter(x => x.n);
-  const resumo = porTema.map(x => `${x.t.curto} ${x.n}`).join(', ');
   const n = c.contagens.total;
-  return `<div class="tbar" aria-hidden="true">${porTema.map(x => `<i style="flex:${x.n} 1 0;background:${TCOR[x.t.id]}"></i>`).join('')}</div>`
-    + `<p class="card-n"><b>${n}</b> ${n === 1 ? 'trecho' : 'trechos'}<span class="sr">. Por tema: ${resumo}</span></p>`;
+  const bars = `<div class="tbar" aria-hidden="true">${porTema.map(x => `<i style="flex:${x.n} 1 0;background:${TCOR[x.t.id]}"></i>`).join('')}</div>`
+    + `<p class="tbar-legend">${porTema.map(x => `<span class="tbar-item"><i aria-hidden="true" style="background:${TCOR[x.t.id]}"></i>${esc(x.t.curto)} <b>${x.n}</b></span>`).join('')}</p>`;
+  const resumo = `<p class="card-n"><b>${n}</b> ${n === 1 ? 'trecho' : 'trechos'}</p>`;
+  return {bars, resumo};
 }
+/* barra/legenda ficam coladas no nome (topo); o resumo final fica ancorado no fundo do
+   card via margin-top:auto, pra dar uma base consistente independente de quantos temas
+   o candidato tem */
 const cardHTML = c => {
   const a = avatarDe(c);
-  return `<article class="card"><span class="avatar${a.cls}" aria-hidden="true">${a.html}</span><div class="card-who"><h4 class="name"><a href="#${c.id}" data-cand="${c.id}">${esc(c.titulo)}<span class="sr"> — ver trechos</span></a></h4>${c.subtitulo ? `<span class="sigla">${esc(c.subtitulo)}</span>` : ''}</div><div class="card-data">${dadosCard(c)}</div>${ARROW}</article>`;
+  const {bars, resumo} = dadosCard(c);
+  return `<article class="card"><span class="avatar${a.cls}" aria-hidden="true">${a.html}</span><div class="card-who"><h4 class="name"><a href="#${c.id}" data-cand="${c.id}">${esc(c.titulo)}<span class="sr"> — ver trechos</span></a></h4>${c.subtitulo ? `<span class="sigla">${esc(c.subtitulo)}</span>` : ''}</div>${bars ? `<div class="card-data">${bars}</div>` : ''}${resumo}${ARROW}</article>`;
 };
 
 /* abre na primeira disputa; "Todas" agrupa por disputa. Grupos grandes mostram só os primeiros cards */
