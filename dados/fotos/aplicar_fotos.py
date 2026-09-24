@@ -43,9 +43,10 @@ for c in d['candidaturas']:
 
 cab_novo = (
     '/* dados.js — GERADO por tratar_dados_v4.py a partir da planilha da pesquisadora (corte %s).\n'
-    '   Não editar à mão: rode o script de novo quando chegar uma planilha nova.\n'
-    '   As contagens (candidatura.contagens) são o dado OFICIAL, completo para as 34 candidaturas.\n'
-    '   candidatura.trechos só traz os trechos com texto conferido (subconjunto de 169, não é o total).\n'
+    '   Não editar à mão: rode o script de novo quando chegar uma planilha nova (e depois\n'
+    '   dados/fotos/aplicar_fotos.py, senão o campo foto de cada candidatura se perde).\n'
+    '   As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro\n'
+    '   OFICIAL e completo dos 827, com texto, página e natureza — aba registro_completo.\n'
     '   candidatura.foto: fotos oficiais baixadas via dados/fotos/baixar_fotos.py (API TSE/DivulgaCandContas),\n'
     '   aplicadas com dados/fotos/aplicar_fotos.py — não editar à mão. */\n'
 ) % d['dataCorte']

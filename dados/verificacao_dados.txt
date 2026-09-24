@@ -1,13 +1,14 @@
 VERIFICAÇÃO — dados.js vs. planilha oficial (corte 22/09/2026 ~04h42 BRT)
 ============================================================
 Candidaturas: 34 (por disputa: {'pres': 13, 'sp': 6, 'rs': 7, 'ma': 8})
-Soma de trechos por candidatura: 825 (oficial: 825) OK
-  mitigacao  trechos 230 / 230   planos 25 / 25   OK
+Soma de trechos por candidatura: 827 (oficial: 827) OK
+  mitigacao  trechos 232 / 232   planos 25 / 25   OK
   adaptacao  trechos 559 / 559   planos 27 / 27   OK
   ar         trechos  16 /  16   planos  7 /  7   OK
   saude      trechos  20 /  20   planos  9 /  9   OK
 
-Trechos com texto (aba registro_completo, 825 esperados): 825 aplicados no site
+Trechos com texto (aba registro_completo, 825 esperados): 827 aplicados no site
+Trechos com inicio/fim (pro <mark> do termo): 827 / 827 OK
   linhas com tema fora da matriz de 4 (não entram no site): 0
   não casaram com nenhuma candidatura (checar nome): nenhuma
 Candidaturas com trechos oficiais mas 0 texto aplicado (deveria ser 0 agora): 0

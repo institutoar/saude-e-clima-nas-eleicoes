@@ -10,15 +10,21 @@ entrega de 22/09 (2ª leva), a aba `registro_completo` traz o texto literal, pá
 arquivo e hash dos 825 trechos — não é mais amostra parcial (as primeiras entregas
 só tinham 169/156 trechos com texto, na aba `citacoes_verificadas`).
 
+Entrega de 24/09 (v5): `registro_completo` ganhou colunas de contexto (texto antes/depois
+de cada trecho) e QA — ainda não consumidas aqui, esse script só lê os mesmos campos de
+sempre (tema, natureza, página, trecho). A coluna do trecho em si foi renomeada de
+"Trecho (literal)" para "Trecho", e o valor de natureza "incidental" passou a se chamar
+"citação/menção" (mesma categoria, mesmo id de tela `mencao`).
+
 Uso:
     cd dados
-    python3 tratar_dados_v4.py --entrada entrada/v4b/Base_de_dados_site_Clima_Saude_2026_v_final.xlsx --saida ../site/dados.js --relatorio verificacao_dados.txt
+    python3 tratar_dados_v4.py --entrada entrada/v5/Base_de_dados_site_Clima_Saude_2026_v_final2.xlsx --saida ../site/dados.js --relatorio verificacao_dados.txt
 """
 import argparse, json, collections as C
 from openpyxl import load_workbook
 
 ap = argparse.ArgumentParser()
-ap.add_argument('--entrada', default='entrada/v4b/Base_de_dados_site_Clima_Saude_2026_v_final.xlsx')
+ap.add_argument('--entrada', default='entrada/v5/Base_de_dados_site_Clima_Saude_2026_v_final2.xlsx')
 ap.add_argument('--saida', default='../site/dados.js')
 ap.add_argument('--relatorio', default='verificacao_dados.txt')
 a = ap.parse_args()
@@ -46,7 +52,7 @@ TEMA_TELA = {
     'Poluição do ar': 'ar', 'Impactos do clima na saúde': 'saude',
 }
 TEMA_COL = {'mitigacao': 'Mitigação', 'adaptacao': 'Adaptação', 'ar': 'Poluição do ar', 'saude': 'Impactos na saúde'}
-NATUREZA_TELA = {'proposta': 'proposta', 'diagnóstico': 'diagnostico', 'incidental': 'mencao'}
+NATUREZA_TELA = {'proposta': 'proposta', 'diagnóstico': 'diagnostico', 'citação/menção': 'mencao'}
 
 # nome de urna oficial (confirmado pelo Marcos/jornalista) — sobrepõe o nome civil da planilha,
 # que a pesquisadora usa pra verificação de identidade, não necessariamente pra exibição pública
@@ -71,7 +77,7 @@ oficial = {
     'natureza': {
         'proposta': resumo['Natureza — propostas'],
         'diagnostico': resumo['Natureza — diagnósticos'],
-        'mencao': resumo['Natureza — incidentais'],
+        'mencao': resumo['Natureza — citações/menções'],
     },
     'metaQuantificada': resumo['Trechos com meta quantificada'],
     'temas': {},  # preenchido abaixo com por_eixo
@@ -141,7 +147,9 @@ for r in linhas('registro_completo'):
         'tema': TEMA_TELA_FULL[tema_raw],
         'natureza': NATUREZA_TELA.get(r['Natureza'], 'mencao'),
         'pagina': r['Página'],
-        'texto': (r['Trecho (literal)'] or '').strip(),
+        'texto': (r['Trecho'] or '').strip(),
+        'inicio': r['Início'],
+        'fim': r['Fim'],
     })
 descartadas_ou_fora = sem_tema_valido
 for c in cands:
@@ -193,8 +201,10 @@ for tid in ['mitigacao', 'adaptacao', 'ar', 'saude']:
     o = oficial['temas'][tid]
     out('  %-10s trechos %3d / %3d   planos %2d / %2d   %s' % (tid, soma, o['trechos'], npl, o['planos'], 'OK' if (soma, npl) == (o['trechos'], o['planos']) else 'DIVERGE'))
 com_texto = sum(1 for c in cands for t in c['trechos'])
+com_indices = sum(1 for c in cands for t in c['trechos'] if t['inicio'] is not None and t['fim'] is not None)
 out()
 out('Trechos com texto (aba registro_completo, 825 esperados): %d aplicados no site' % com_texto)
+out('Trechos com inicio/fim (pro <mark> do termo): %d / %d %s' % (com_indices, com_texto, 'OK' if com_indices == com_texto else 'FALTANDO EM ALGUNS — checar planilha'))
 out('  linhas com tema fora da matriz de 4 (não entram no site): %d' % descartadas_ou_fora)
 out('  não casaram com nenhuma candidatura (checar nome): %s' % (nao_casaram or 'nenhuma'))
 sem_texto = [c['id'] for c in cands if c['contagens']['total'] > 0 and not c['trechos']]

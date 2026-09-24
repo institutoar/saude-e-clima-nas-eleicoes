@@ -1,3 +1,10 @@
+/* dados.js — GERADO por tratar_dados_v4.py a partir da planilha da pesquisadora (corte 22/09/2026 ~04h42 BRT).
+   Não editar à mão: rode o script de novo quando chegar uma planilha nova (e depois
+   dados/fotos/aplicar_fotos.py, senão o campo foto de cada candidatura se perde).
+   As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro
+   OFICIAL e completo dos 827, com texto, página e natureza — aba registro_completo.
+   candidatura.foto: fotos oficiais baixadas via dados/fotos/baixar_fotos.py (API TSE/DivulgaCandContas),
+   aplicadas com dados/fotos/aplicar_fotos.py — não editar à mão. */
 window.DADOS = {
  "dataCorte": "22/09/2026 ~04h42 BRT",
  "disputas": [
