@@ -147,7 +147,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .groups{display:grid;gap:72px;margin-top:8px}
 .group-h{margin-bottom:24px;font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:-.005em;color:var(--mute)}
 /* avatar: foto oficial do TSE com tratamento único (tons de cinza + duotone); sem foto, iniciais */
-.avatar{flex:none;position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;overflow:hidden;background:var(--dark);color:var(--mute);font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:-.01em}
+.avatar{flex:none;position:relative;box-sizing:border-box;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;overflow:hidden;background:var(--dark);border:1px solid var(--rule);color:var(--mute);font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:-.01em}
 .avatar.sm{font-size:14px}
 .avatar.foto{background:var(--dark)}
 /* fotos vêm de fundos e enquadramentos diferentes (cada campanha manda a sua); encolher ~14%
