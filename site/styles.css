@@ -153,7 +153,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* fotos vêm de fundos e enquadramentos diferentes (cada campanha manda a sua); encolher ~14%
    dentro do círculo dá um respiro consistente e esconde a maior parte do fundo variado de cada uma */
 .avatar img{position:absolute;inset:7%;width:86%;height:86%;border-radius:50%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.05)}
-.card{position:relative;display:flex;flex-direction:column;height:390px;padding:32px;background:var(--card);border:1px solid rgba(21,7,76,.07);border-radius:4px;transition:border-color .2s ease}
+.card{position:relative;display:flex;flex-direction:column;height:404px;padding:32px;background:var(--card);border:1px solid rgba(21,7,76,.07);border-radius:4px;transition:border-color .2s ease}
 .card:hover{border-color:var(--acc)}
 .card:has(a:focus-visible){outline:2px solid var(--acc);outline-offset:3px}
 .card .avatar{width:72px;height:72px;font-size:24px}
@@ -230,8 +230,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card-n .am{margin-left:4px;font-size:12px;opacity:.85}
 .card-none{margin-top:auto;font-size:14px;line-height:1.4;color:var(--mute)}
 
-.card-who{min-width:0;margin-top:24px}
-.card-data{margin-top:28px}
+.card-who{min-width:0;box-sizing:border-box;margin:24px -32px 0;padding:0 32px 20px;border-bottom:1px solid var(--rule)}
+.card-data{margin-top:20px}
 
 /* ---------- A2: números ---------- */
 .nums-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:88px;row-gap:64px;margin-top:72px}
@@ -308,6 +308,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   .tema{min-height:0;padding:28px}
   .filters .status{margin-left:0;width:100%}
   .card{padding:28px}
+  .card-who{margin-left:-28px;margin-right:-28px;padding-left:28px;padding-right:28px}
   .acc-selo{grid-template-columns:1fr;gap:6px}
 }
 
