@@ -115,15 +115,14 @@ const NAT = Object.fromEntries(D.naturezas.map(n => [n.id, n.rotulo]));
 const ATR = D.atributos[0];   // meta quantificada
 /* provisório: definições derivadas do documento do jornalista; validar com a pesquisadora */
 const SELOS = {
-  proposta:'O plano afirma que fará, podendo considerar meta e/ou prazo.',
-  diagnostico:'Descreva uma situação, sem apontar solução.',
-  mencao:'O termo está presente sem afirmação sobre o tema.',
-  contrario:'O plano se posiciona contra a agenda.',
+  proposta:'O plano anuncia o que fará, no futuro, com o tema como objeto da ação.',
+  diagnostico:'Descreve uma situação, ou relata o que o governo atual já fez ou está fazendo.',
+  mencao:'O termo aparece, mas o trecho não afirma nada sobre ele.',
+  contrario:'Nega ou contesta a mudança do clima ou a ação climática.',
   metaQuantificada:'Trecho que traz uma meta numérica com prazo definido.'
 };
-const ROTULOS_SELO = {mencao:'Citação/Menção'};
 const selosEl = $('acc-selos');
-if(selosEl) selosEl.innerHTML = [...D.naturezas.map(n => ({k:n.id, r:ROTULOS_SELO[n.id] || n.rotulo})), {k:'contrario', r:'Contrário'}]
+if(selosEl) selosEl.innerHTML = [...D.naturezas.map(n => ({k:n.id, r:n.rotulo})), {k:'contrario', r:'Contrário'}]
   .map(s => `<div class="acc-selo"><dt><span class="selo-tag">${esc(s.r)}</span></dt><dd>${esc(SELOS[s.k])}</dd></div>`).join('');
 /* temas com trecho oficial (contagem completa) — decide os filtros habilitados */
 const temasDe = c => D.temas.map(t => t.id).filter(id => c.contagens[id] > 0);
@@ -151,7 +150,7 @@ function renderNatBar(c){
   D.naturezas.forEach(n => counts[n.id] = 0);
   trechos.forEach(t => { if(counts[t.natureza] !== undefined) counts[t.natureza]++; });
   const SOMBRA = {proposta:1, diagnostico:.55, mencao:.28};
-  const PLURAL = {proposta:'propostas', diagnostico:'diagnósticos', mencao:'menções'};
+  const PLURAL = {proposta:'compromissos', diagnostico:'relatos', mencao:'citações'};
   const segs = D.naturezas.filter(n => counts[n.id] > 0);
   el.innerHTML = `<div class="nat-bar-track">${segs.map(n => `<span class="nat-bar-seg" style="width:${(counts[n.id] / total * 100).toFixed(2)}%;background:rgba(21,7,76,${SOMBRA[n.id]})"></span>`).join('')}</div><p class="nat-bar-legend">${segs.map(n => `<span class="nat-bar-item"><i style="background:rgba(21,7,76,${SOMBRA[n.id]})"></i>${counts[n.id]} ${PLURAL[n.id]}</span>`).join('')}</p>`;
 }

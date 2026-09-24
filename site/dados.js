@@ -43,15 +43,15 @@ window.DADOS = {
  "naturezas": [
   {
    "id": "proposta",
-   "rotulo": "Proposta"
+   "rotulo": "Compromisso"
   },
   {
    "id": "diagnostico",
-   "rotulo": "Diagnóstico"
+   "rotulo": "Relato"
   },
   {
    "id": "mencao",
-   "rotulo": "Menção"
+   "rotulo": "Citação"
   }
  ],
  "atributos": [

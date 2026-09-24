@@ -161,9 +161,9 @@ DADOS = {
         {'id': 'saude', 'rotulo': 'Impactos do clima na saúde', 'curto': 'Clima e saúde'},
     ],
     'naturezas': [
-        {'id': 'proposta', 'rotulo': 'Proposta'},
-        {'id': 'diagnostico', 'rotulo': 'Diagnóstico'},
-        {'id': 'mencao', 'rotulo': 'Menção'},
+        {'id': 'proposta', 'rotulo': 'Compromisso'},
+        {'id': 'diagnostico', 'rotulo': 'Relato'},
+        {'id': 'mencao', 'rotulo': 'Citação'},
     ],
     'atributos': [{'id': 'metaQuantificada', 'rotulo': 'Meta quantificada'}],
     'oficial': oficial,
