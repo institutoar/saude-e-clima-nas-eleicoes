@@ -1,5 +1,5 @@
 'use strict';
-/* Todos os números e listas vêm de dados.js (window.DADOS), gerado por tratar_dados.py. */
+/* Todos os números e listas vêm de dados.js (window.DADOS), gerado por tratar_dados_v4.py. */
 const D = window.DADOS;
 const O = D.oficial;
 const TOTAL = O.candidaturas;

@@ -3,8 +3,7 @@
 tratar_dados_v4.py — gera dados.js a partir da planilha "Base de dados para o site"
 entregue pela pesquisadora (versão 4.0, corpus fechado em 22/09/2026).
 
-Diferença para o pipeline anterior (tratar_dados.py, que lia dados_final.json):
-a fonte agora é a planilha .xlsx com 13-14 abas. As CONTAGENS por candidatura/tema
+A fonte é a planilha .xlsx com 13-14 abas. As CONTAGENS por candidatura/tema
 são completas e oficiais para as 34 candidaturas (aba `candidaturas`). Desde a
 entrega de 22/09 (2ª leva), a aba `registro_completo` traz o texto literal, página,
 arquivo e hash dos 825 trechos — não é mais amostra parcial (as primeiras entregas
