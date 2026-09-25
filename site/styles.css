@@ -153,9 +153,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* fotos vêm de fundos e enquadramentos diferentes (cada campanha manda a sua); encolher ~14%
    dentro do círculo dá um respiro consistente e esconde a maior parte do fundo variado de cada uma */
 .avatar img{position:absolute;inset:7%;width:86%;height:86%;border-radius:50%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.05)}
-.card{position:relative;display:flex;flex-direction:column;height:404px;padding:32px;background:var(--card);border:1px solid rgba(21,7,76,.07);border-radius:4px;transition:border-color .2s ease}
-.card:hover{border-color:var(--acc)}
-.card:has(a:focus-visible){outline:2px solid var(--acc);outline-offset:3px}
+.card{position:relative;display:flex;flex-direction:column;height:404px;padding:32px;background:var(--card);border:3px solid rgba(21,7,76,.08);border-radius:4px;transition:border-color .2s ease}
+.card:hover{border-color:var(--brand-ink)}
+.card:has(a:focus-visible){outline:2px solid var(--brand-ink);outline-offset:3px}
 .card .avatar{width:72px;height:72px;font-size:24px}
 .card .avatar.sm{font-size:18px}
 .card .name{margin:0;font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:-.01em;line-height:1.25}
