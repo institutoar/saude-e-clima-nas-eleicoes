@@ -8,6 +8,7 @@
   --deep:#FFFFFF;
   --card:#F5F2FB;
   --card-2:#F5F2FB;
+  --card-hover:#EDE8F9;
   --ink:#443970;
   --mute:#655A87;
   --acc:#2FD4DA;
@@ -177,8 +178,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ctx-lead + .ctx-lead{margin-top:28px}
 .ctx-main .btns{margin-top:36px}
 .acc{align-self:start;display:flex;flex-direction:column;gap:8px}
-.acc-item{background:var(--card);border-radius:4px;padding:24px}
-.acc-item summary{display:flex;align-items:center;gap:24px;padding:0;list-style:none;cursor:pointer}
+.acc-item{background:var(--card);border-radius:4px;padding:24px;transition:background .2s ease}
+.acc-item summary{position:relative;display:flex;align-items:center;gap:24px;padding:0;list-style:none;cursor:pointer}
+.acc-item summary::before{content:"";position:absolute;inset:-24px -24px -16px}
+.acc-item:not([open]) summary::before{bottom:-24px}
 .acc-item summary::-webkit-details-marker{display:none}
 .acc-t{flex:1;min-width:0;font-family:var(--head);font-weight:700;font-size:18px;letter-spacing:-.01em;line-height:1.25}
 .acc-i{flex:none;position:relative;width:36px;height:36px;border:1px solid var(--violet);color:var(--violet);border-radius:50%;transition:background .2s ease,color .2s ease,border-color .2s ease}
@@ -186,6 +189,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .acc-i::after{transform:rotate(90deg)}
 .acc-item[open] .acc-i::after{transform:rotate(0)}
 .acc-item summary:hover .acc-i{background:var(--ink);color:var(--dark);border-color:var(--ink)}
+@media (hover:hover){.acc-item:has(> summary:hover){background:var(--card-hover)}}
 .acc-item > .acc-body{overflow:hidden}
 .acc-body-in{padding-top:16px;color:var(--mute);font-size:18px;line-height:1.6}
 .acc-body p + p{margin-top:16px}
@@ -317,7 +321,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .acc-i,.acc-i::before,.acc-i::after{transition:none}html{scroll-behavior:auto}
+  .acc-item,.acc-i,.acc-i::before,.acc-i::after{transition:none}html{scroll-behavior:auto}
   .groups.swap,.dlg-body.swap{animation:none}
   .dlg[open],.dlg[open]::backdrop{animation:none}
   .btn,.card,.card .go,.share a,.share button{transition:none}

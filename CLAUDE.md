@@ -28,6 +28,8 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
 - `--acc: #2FD4DA` (ciano) — fundo do hero e do rodapé, botões CTA padrão.
 - `--card` / `--card-2: #F5F2FB` — fundo dos boxes (cards de candidatura, cards de
   tema, itens do accordion).
+- `--card-hover: #EDE8F9` — fundo do card do accordion da intro quando o cursor está sobre o
+  cabeçalho (só em dispositivos com hover).
 - `--hero-edge: #0B5663` — acento secundário pontual (hover de link no rodapé).
 - `--violet: #8F76F1` — acento secundário de marca (roxo). Uso: botão "NOTA TÉCNICA",
   `.btn.violet` ("Ver metodologia"), link ativo do drawer mobile, ícone +/− do
