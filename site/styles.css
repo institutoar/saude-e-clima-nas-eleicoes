@@ -243,7 +243,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* ---------- rodapé ---------- */
 .foot{background:var(--acc);color:var(--brand-ink);padding-block:128px 48px}
-.foot .foot-grid{row-gap:88px}
+.foot .foot-grid{row-gap:128px}
 .foot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);row-gap:56px}
 .foot-brand{grid-column:1;display:flex;flex-direction:column}
 .foot-text{grid-column:2 / 4;container-type:inline-size}
@@ -251,15 +251,17 @@ button{font:inherit;color:inherit;cursor:pointer}
 .foot-logos{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
 .foot-logo-mark svg{display:block;height:64px;width:auto}
 .foot-logo-mark .ia-logo-fill{fill:var(--brand-ink)}
-.foot-info{margin-top:56px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter)}
 .foot-info h3{font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
+.foot-info{margin-top:80px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter)}
 .foot-info p{color:rgba(21,7,76,.72);font-size:15.5px;line-height:1.55}
 .foot-info p + p{margin-top:12px}
 .foot-info a,.foot-info button{color:var(--brand-ink);font-weight:700;text-decoration:underline;text-underline-offset:4px;background:none;border:0;padding:0;font-size:15.5px}
 .foot-info a:hover,.foot-info button:hover{color:var(--hero-edge)}
 .foot-bottom{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:32px;border-top:1px solid var(--rule-strong);color:rgba(21,7,76,.72);font-size:14.5px}
-.foot-top{display:flex;align-items:center;gap:16px;color:var(--brand-ink);font-weight:700}
-.foot-top i{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--brand-ink);color:var(--acc);transition:transform .2s ease}
+.foot-copy{display:inline-flex;flex-wrap:wrap;column-gap:6px}
+.foot-copy>span{white-space:nowrap}
+.foot-top{flex-shrink:0;display:flex;align-items:center;gap:16px;color:var(--brand-ink);font-weight:700}
+.foot-top i{flex-shrink:0;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--brand-ink);color:var(--acc);transition:transform .2s ease}
 .foot-top:hover i{transform:translateY(-3px)}
 
 
@@ -298,8 +300,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   .foot-logos{grid-column:1 / -1;order:1}
   .foot-text{grid-column:1 / -1;order:2}
   .foot-brand .share-block{grid-column:1 / -1;order:3;margin-top:0}
-  .foot-bottom{order:4}
-  .foot-info{grid-template-columns:1fr;gap:40px}
+  .foot-bottom{order:4;flex-wrap:wrap;row-gap:16px}
+  .foot-info{grid-template-columns:1fr;gap:40px;margin-top:56px}
   .foot .foot-grid{row-gap:56px}
   .foot{padding-block:96px 48px}
 }
