@@ -342,7 +342,7 @@ const DOCS = {
           </dl>
         </div>
       </div>
-      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados de planos de governo reais.</em></p>
+      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados sem identificação dos planos de governo analisados pelo Instituto Ar nas eleições de 2026.</em></p>
 
       <p>É fundamental ressaltar que a formulação de políticas públicas eficientes não exige a reinvenção institucional. O Estado brasileiro já dispõe de programas estruturantes desenhados para este fim, como o VigiDesastres (Programa Nacional de Vigilância em Saúde dos Riscos Associados aos Desastres) e o VigiAgua (Vigilância da Qualidade da Água).</p>
       <p>O diferencial de uma proposta política robusta reside no compromisso de financiar, modernizar e integrar essas iniciativas existentes, dotando-as de tecnologia para operar de forma preditiva. Promessas que propõem a criação de estruturas inteiramente novas, ignorando o histórico e a capacidade instalada do SUS e do Sistema Nacional de Proteção e Defesa Civil, devem ser avaliadas com ceticismo, pois frequentemente configuram ações de marketing político descoladas da viabilidade técnica.</p>
@@ -380,7 +380,7 @@ const DOCS = {
           </dl>
         </div>
       </div>
-      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados de planos de governo reais.</em></p>
+      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados sem identificação dos planos de governo analisados pelo Instituto Ar nas eleições de 2026.</em></p>
 
       <p>Ao analisar essas propostas, a população pode observar se o candidato enxerga a sustentabilidade não como um "gasto extra", mas como um investimento inteligente. Hospitais que geram sua própria energia solar, por exemplo, não apenas deixam de poluir, mas também se tornam mais resilientes a apagões e liberam recursos financeiros que podem ser reinvestidos no atendimento direto ao paciente.</p>
 
@@ -416,7 +416,7 @@ const DOCS = {
           </dl>
         </div>
       </div>
-      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados de planos de governo reais.</em></p>
+      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados sem identificação dos planos de governo analisados pelo Instituto Ar nas eleições de 2026.</em></p>
 
       <p>Ao ler os planos de governo, o eleitor deve ser crítico: se o candidato promete melhorar a saúde respiratória, mas ao mesmo tempo incentiva o desmatamento ou ignora o transporte público limpo, ele apresenta uma inconsistência, pois a saúde humana e a saúde ambiental são inseparáveis.</p>
 
@@ -452,7 +452,7 @@ const DOCS = {
           </dl>
         </div>
       </div>
-      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados de planos de governo reais.</em></p>
+      <p class="doc-nota-metodo"><em>Nota: Os trechos entre aspas e itálico foram retirados sem identificação dos planos de governo analisados pelo Instituto Ar nas eleições de 2026.</em></p>
 
       <p>Ao avaliar este eixo, o eleitor deve ter em mente que a mudança do clima mudou também a forma de enfrentamento das doenças. Candidatos que apresentam as mesmas soluções das décadas passadas para combater doenças não estão preparados para proteger a população no cenário climático atual.</p>
 
