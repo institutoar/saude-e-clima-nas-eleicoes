@@ -381,6 +381,8 @@ html:has(dialog[open]){overflow:hidden}
 .matriz-diretriz{margin:0;font-size:15px;line-height:1.6}
 .doc-refs{margin:16px 0 0;padding-left:22px;display:grid;gap:12px;font-size:13.5px;line-height:1.6;color:var(--mute)}
 .doc-refs a{color:inherit;text-decoration:underline}
+.doc-parceiro{margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
+.doc-parceiro img{display:block;width:180px;height:auto}
 .dlg-body .group{margin-top:36px}
 .dlg-body .group-h{margin-bottom:6px}
 .dlg-note{margin-top:20px;font-size:15px;color:var(--mute)}

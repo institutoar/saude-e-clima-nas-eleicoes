@@ -489,6 +489,10 @@ const DOCS = {
         <li>TENNISON, I. et al. (2021). Health care's response to climate change: a carbon footprint assessment of the NHS in England. <em>The Lancet Planetary Health</em>, 5(2), e84-e92. Disponível em: <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(20)30271-0/fulltext" target="_blank" rel="noopener">thelancet.com</a></li>
         <li>United Nations Office for Disaster Risk Reduction [UNDRR]. (2015). <em>Sendai Framework for Disaster Risk Reduction 2015-2030</em>. Escritório das Nações Unidas para a Redução do Risco de Desastres. Disponível em: <a href="https://www.undrr.org/publication/sendai-framework-disaster-risk-reduction-2015-2030" target="_blank" rel="noopener">undrr.org</a></li>
       </ol>
+
+      <div class="doc-parceiro">
+        <img src="logos/medicos-pelo-clima.jpg" alt="Médicos pelo Clima" width="220" height="100">
+      </div>
     `
   }
 };
