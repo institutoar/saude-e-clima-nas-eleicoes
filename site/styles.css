@@ -15,6 +15,8 @@
   --t-mit:#2a78d6;--t-ada:#1baf7a;--t-ar:#b5651d;--t-sau:#e87ba4;
   --rule:rgba(21,7,76,.15);
   --rule-strong:rgba(21,7,76,.25);
+  --line-control:rgba(21,7,76,.4);
+  --frame:rgba(21,7,76,.08);
   --track:rgba(21,7,76,.12);
 
   --container:1512px;
@@ -104,7 +106,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hero h1{grid-column:1 / -1;text-align:center;justify-self:center;font-family:var(--head);font-weight:500;font-size:clamp(44px,7vw,104px);letter-spacing:-.03em;line-height:1.04;color:var(--brand-ink)}
 .hero .sub{grid-column:1 / -1;justify-self:center;max-width:640px;text-align:center;color:rgba(21,7,76,.72);font-size:22px;line-height:1.5;margin-top:-8px;text-wrap:balance}
 .hero-disclaimer{width:100%;margin:32px 0 0;font-size:16px;font-weight:500;line-height:1.5;color:rgba(21,7,76,.6)}
-.scroll-cue{position:absolute;left:50%;bottom:40px;margin-left:-24px;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid rgba(21,7,76,.4);color:var(--brand-ink);transition:background .2s ease,color .2s ease,border-color .2s ease}
+.scroll-cue{position:absolute;left:50%;bottom:40px;margin-left:-24px;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid var(--line-control);color:var(--brand-ink);transition:background .2s ease,color .2s ease,border-color .2s ease}
 .scroll-cue:hover{background:var(--brand-ink);color:var(--acc);border-color:var(--brand-ink)}
 .scroll-cue svg{width:24px;height:24px;fill:currentColor}
 
@@ -127,7 +129,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* compartilhar: bloco discreto na coluna do título, com fio e rótulo */
 .share-block{grid-column:1 / 3;align-self:start;max-width:240px;position:relative}
 .share{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.share a,.share button{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;background:transparent;border:1px solid rgba(21,7,76,.4);border-radius:4px;color:var(--brand-ink);transition:color .2s ease,border-color .2s ease,background .2s ease}
+.share a,.share button{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--line-control);border-radius:4px;color:var(--brand-ink);transition:color .2s ease,border-color .2s ease,background .2s ease}
 .share a:hover,.share button:hover{background:var(--brand-ink);border-color:var(--brand-ink);color:var(--acc)}
 .share svg{width:18px;height:18px;fill:currentColor}
 .share .st svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -135,7 +137,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* ---------- ferramenta (largura total) ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:32px;padding-top:40px;border-top:1px solid var(--rule)}
-.filters button,.dlg-filters button{background:transparent;border:1px solid rgba(21,7,76,.5);border-radius:4px;padding:12px 26px;font-size:15px;font-weight:700;text-transform:uppercase}
+.filters button,.dlg-filters button{background:transparent;border:1px solid var(--line-control);border-radius:4px;padding:12px 26px;font-size:15px;font-weight:700;text-transform:uppercase}
 .filters button{padding:12px 24px;font-size:12px;letter-spacing:.08em}
 .filters button:hover,.dlg-filters button:hover{border-color:var(--ink)}
 .filters button[aria-pressed="true"],.dlg-filters button[aria-pressed="true"]{background:var(--ink);color:var(--dark);border-color:var(--ink)}
@@ -153,7 +155,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* fotos vêm de fundos e enquadramentos diferentes (cada campanha manda a sua); encolher ~14%
    dentro do círculo dá um respiro consistente e esconde a maior parte do fundo variado de cada uma */
 .avatar img{position:absolute;inset:7%;width:86%;height:86%;border-radius:50%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.05)}
-.card{position:relative;display:flex;flex-direction:column;height:404px;padding:32px;background:var(--card);border:3px solid rgba(21,7,76,.08);border-radius:4px;transition:border-color .2s ease}
+.card{position:relative;display:flex;flex-direction:column;height:404px;padding:32px;background:var(--card);border:3px solid var(--frame);border-radius:4px;transition:border-color .2s ease}
 .card:hover{border-color:var(--brand-ink)}
 .card:has(a:focus-visible){outline:2px solid var(--brand-ink);outline-offset:3px}
 .card .avatar{width:72px;height:72px;font-size:24px}
@@ -162,7 +164,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card .name a{color:inherit;text-decoration:none}
 .card .name a:focus-visible{outline:none}
 .card .name a::after{content:"";position:absolute;inset:0;border-radius:4px}
-.sigla{display:inline-block;margin-top:12px;padding:2px 10px;border:1px solid rgba(21,7,76,.4);border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--mute)}
+.sigla{display:inline-block;margin-top:12px;padding:2px 10px;border:1px solid var(--line-control);border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--mute)}
 .card .go{position:absolute;right:32px;top:32px;width:20px;height:20px;color:var(--mute);transition:transform .2s ease,color .2s ease}
 .card:hover .go{color:var(--ink);transform:translateX(3px)}
 
@@ -194,7 +196,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .acc-selo{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:baseline}
 .acc-selo dt{margin:0}
 .acc-selo dd{margin:0;font-size:15px;line-height:1.5}
-.selo-tag{display:inline-block;padding:3px 11px;border:1px solid rgba(21,7,76,.4);border-radius:4px;font-size:13px;font-weight:700;color:var(--mute)}
+.selo-tag{display:inline-block;padding:3px 11px;border:1px solid var(--line-control);border-radius:4px;font-size:13px;font-weight:700;color:var(--mute)}
 .selo-tag.attr{background:rgba(21,7,76,.12)}
 
 /* ---------- A2: os quatro temas (cards) ---------- */
@@ -346,7 +348,7 @@ html:has(dialog[open]){overflow:hidden}
 .dlg-id{display:flex;align-items:center;gap:18px;min-width:0}
 .dlg-id h2{font-family:var(--head);font-weight:600;font-size:26px;letter-spacing:-.015em;line-height:1.15}
 .dlg-sub{margin-top:6px;font-size:15.5px;color:var(--mute)}
-.dlg-close{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-6px -8px 0 0;border-radius:50%;border:1px solid rgba(21,7,76,.5);background:transparent;transition:background .2s ease,color .2s ease}
+.dlg-close{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-6px -8px 0 0;border-radius:50%;border:1px solid var(--line-control);background:transparent;transition:background .2s ease,color .2s ease}
 .dlg-close:hover{background:var(--ink);color:var(--dark);border-color:var(--ink)}
 .dlg-filters{display:flex;gap:10px;margin-top:24px;padding-bottom:2px;overflow-x:auto;scrollbar-width:none}
 .nat-bar{margin-top:20px}
@@ -360,7 +362,7 @@ html:has(dialog[open]){overflow:hidden}
 .dlg-filters::-webkit-scrollbar{display:none}
 .dlg-filters:empty,.dlg-status:empty{display:none}
 .dlg-filters button{flex:none;padding:8px 16px;font-size:14px}
-.dlg-filters button.off,.dlg-filters button.off:hover{opacity:.45;border-style:dashed;border-color:rgba(21,7,76,.5);cursor:default}
+.dlg-filters button.off,.dlg-filters button.off:hover{opacity:.45;border-style:dashed;border-color:var(--line-control);cursor:default}
 .dlg-status{margin:12px 0 0;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
 .dlg-body{overflow-y:auto;overscroll-behavior:contain;padding:4px 40px 48px}
 .doc-body{padding-top:28px}
@@ -395,12 +397,12 @@ html:has(dialog[open]){overflow:hidden}
 .tr-txt mark{background:#FFC20E;color:var(--brand-ink);border-radius:2px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .tr-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
 .tr-pag{margin-left:auto;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
-.selo{display:inline-flex;align-items:center;gap:7px;padding:3px 11px;border:1px solid rgba(21,7,76,.4);border-radius:4px;background:transparent;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.selo{display:inline-flex;align-items:center;gap:7px;padding:3px 11px;border:1px solid var(--line-control);border-radius:4px;background:transparent;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
 .selo::after{content:"i";display:grid;place-items:center;width:14px;height:14px;border:1px solid currentColor;border-radius:50%;font-family:var(--head);font-size:9px;font-weight:700;line-height:1}
 .selo:hover,.selo[aria-expanded="true"]{color:var(--ink);border-color:var(--ink)}
 /* atributo (meta quantificada): neutro como os demais selos, distinguido só por um preenchimento suave */
 .selo.attr{background:rgba(21,7,76,.12)}
-.pop{position:fixed;z-index:10;max-width:300px;padding:14px 16px;background:var(--card);border:1px solid rgba(21,7,76,.3);border-radius:4px;font-size:15px;line-height:1.45;color:var(--ink)}
+.pop{position:fixed;z-index:10;max-width:300px;padding:14px 16px;background:var(--card);border:1px solid var(--line-control);border-radius:4px;font-size:15px;line-height:1.45;color:var(--ink)}
 .pop[hidden]{display:none}
 @media (max-width:560px){
   .dlg{width:100%;height:100vh;height:100dvh;max-height:none;margin:0;border-radius:0}

@@ -39,6 +39,9 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
 - `#FFC20E` (amarelo institucional) — uso exclusivo: `<mark>` da palavra do
   dicionário destacada no texto do trecho.
 - `--rule` / `--rule-strong` — fios/divisórias, 1px sólido.
+- `--line-control` — contorno de controles e tags pequenos (botões, pills, siglas, popup),
+  1px sólido. `--frame` — borda suave de 3px dos cards de candidato. Não criar novas
+  opacidades soltas de `rgba(21,7,76,...)` em bordas: usar um desses tokens.
 
 Tipografia: Poppins pra tudo, corpo em `font-weight:500` por padrão. Border-radius
 padronizado em **4px** em todo botão/box — nada de pílula (`999px`), exceto elementos
