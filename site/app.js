@@ -120,7 +120,7 @@ const NAT = Object.fromEntries(D.naturezas.map(n => [n.id, n.rotulo]));
 const ATR = D.atributos[0];   // meta quantificada
 /* provisório: definições derivadas do documento do jornalista; validar com a pesquisadora */
 const SELOS = {
-  proposta:'O plano anuncia o que fará, no futuro, com o tema como objeto da ação.',
+  proposta:'O plano anuncia o que fará, no futuro, com o tema como um dos objetos da ação.',
   diagnostico:'Descreve uma situação, ou relata o que o governo atual já fez ou está fazendo.',
   mencao:'O termo aparece, mas o trecho não afirma nada sobre ele.',
   contrario:'Nega ou contesta a mudança do clima ou a ação climática.',
