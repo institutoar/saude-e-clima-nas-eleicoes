@@ -11,7 +11,7 @@ Um projeto do [Instituto Ar](https://institutoar.org.br/).
 ## O que é
 
 827 trechos extraídos dos planos de governo oficiais registrados no TSE, localizados
-por um dicionário público e versionado de termos (`dados/Dicionario_v3.2_para_o_site.xlsx`)
+por um dicionário público e versionado de termos (`dados/dicionario.xlsx`)
 e classificados por natureza — compromisso, relato ou citação — em quatro eixos
 temáticos: mitigação climática, adaptação e eventos extremos, poluição do ar, e
 impactos do clima na saúde.
@@ -43,7 +43,7 @@ alguns navegadores restringem `fetch`/módulos nesse modo.
 
 ```
 cd dados
-python3 tratar_dados_v4.py
+python3 tratar_dados.py
 ```
 
 Lê a planilha-fonte mais recente em `dados/entrada/`, escreve `site/dados.js` e um

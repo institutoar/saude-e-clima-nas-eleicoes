@@ -1,4 +1,4 @@
-/* dados.js — GERADO por tratar_dados_v4.py a partir da planilha da pesquisadora (corte 22/09/2026 ~04h42 BRT).
+/* dados.js — GERADO por tratar_dados.py a partir da planilha da pesquisadora (corte 22/09/2026 ~04h42 BRT).
    Não editar à mão: rode o script de novo quando chegar uma planilha nova (e depois
    dados/fotos/aplicar_fotos.py, senão o campo foto de cada candidatura se perde).
    As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro

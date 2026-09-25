@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-tratar_dados_v4.py — gera dados.js a partir da planilha "Base de dados para o site"
+tratar_dados.py — gera dados.js a partir da planilha "Base de dados para o site"
 entregue pela pesquisadora (versão 4.0, corpus fechado em 22/09/2026).
 
 A fonte é a planilha .xlsx com 13-14 abas. As CONTAGENS por candidatura/tema
@@ -17,13 +17,13 @@ sempre (tema, natureza, página, trecho). A coluna do trecho em si foi renomeada
 
 Uso:
     cd dados
-    python3 tratar_dados_v4.py --entrada entrada/v5/Base_de_dados_site_Clima_Saude_2026_v_final2.xlsx --saida ../site/dados.js --relatorio verificacao_dados.txt
+    python3 tratar_dados.py --entrada entrada/base_de_dados.xlsx --saida ../site/dados.js --relatorio verificacao_dados.txt
 """
 import argparse, json, collections as C
 from openpyxl import load_workbook
 
 ap = argparse.ArgumentParser()
-ap.add_argument('--entrada', default='entrada/v5/Base_de_dados_site_Clima_Saude_2026_v_final2.xlsx')
+ap.add_argument('--entrada', default='entrada/base_de_dados.xlsx')
 ap.add_argument('--saida', default='../site/dados.js')
 ap.add_argument('--relatorio', default='verificacao_dados.txt')
 a = ap.parse_args()
@@ -178,7 +178,7 @@ DADOS = {
     'candidaturas': cands,
 }
 
-cab = ('/* dados.js — GERADO por tratar_dados_v4.py a partir da planilha da pesquisadora (corte %s).\n'
+cab = ('/* dados.js — GERADO por tratar_dados.py a partir da planilha da pesquisadora (corte %s).\n'
        '   Não editar à mão: rode o script de novo quando chegar uma planilha nova (e depois\n'
        '   dados/fotos/aplicar_fotos.py, senão o campo foto de cada candidatura se perde).\n'
        '   As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro\n'

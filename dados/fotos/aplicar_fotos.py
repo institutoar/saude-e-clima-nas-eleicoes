@@ -42,7 +42,7 @@ for c in d['candidaturas']:
     aplicadas.append(c['id'])
 
 cab_novo = (
-    '/* dados.js — GERADO por tratar_dados_v4.py a partir da planilha da pesquisadora (corte %s).\n'
+    '/* dados.js — GERADO por tratar_dados.py a partir da planilha da pesquisadora (corte %s).\n'
     '   Não editar à mão: rode o script de novo quando chegar uma planilha nova (e depois\n'
     '   dados/fotos/aplicar_fotos.py, senão o campo foto de cada candidatura se perde).\n'
     '   As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro\n'

@@ -63,7 +63,7 @@ genuinamente circulares. Botões em uppercase.
 
 827 trechos, 34 candidaturas. IDs seguem `{BR|SP|RS|MA}-{ordem:02d}`. Cada trecho:
 `{tema, natureza, pagina, texto, inicio, fim}`. O dicionário de recuperação completo
-está em `dados/Dicionario_v3.2_para_o_site.xlsx`.
+está em `dados/dicionario.xlsx`.
 
 ### Pendências conhecidas (não resolver sozinho sem confirmar — perguntar primeiro)
 
