@@ -200,7 +200,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* ---------- A2: os quatro temas (cards) ---------- */
 .sec.temas{background:var(--mid)}
 .temas-grid{list-style:none;margin:72px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
-.tema{display:flex;flex-direction:column;min-height:260px;padding:32px;background:var(--card-2);border-top:3px solid var(--c);border-radius:0 0 4px 4px}
+.tema{display:flex;flex-direction:column;min-height:260px;padding:32px;background:var(--card-2);border:3px solid var(--c);border-radius:4px}
 .tema h3{font-family:var(--head);font-weight:600;font-size:22px;letter-spacing:-.01em;line-height:1.25;text-wrap:balance}
 .tema-copy{margin-top:auto;padding-top:24px}
 .tema p{font-size:16px;line-height:1.55;color:var(--mute)}
