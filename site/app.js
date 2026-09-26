@@ -90,7 +90,7 @@ const cardHTML = c => {
   return `<article class="card"><span class="avatar${a.cls}" aria-hidden="true">${a.html}</span><div class="card-who"><h4 class="name"><a href="#${c.id}" data-cand="${c.id}">${esc(c.titulo)}<span class="sr"> — ver trechos</span></a></h4>${c.subtitulo ? `<span class="sigla">${esc(c.subtitulo)}</span>` : ''}</div>${bars ? `<div class="card-data">${bars}</div>` : ''}${resumo}${ARROW}</article>`;
 };
 
-/* abre na primeira disputa; "Todas" agrupa por disputa. Grupos grandes mostram só os primeiros cards */
+/* abre em "Todas" (agrupa por disputa); cada filtro mostra todos os cards do grupo escolhido */
 function render(){
   const k = filters.querySelector('button[aria-pressed="true"]').dataset.k;
   const list = k === 'all' ? DISP : DISP.filter(d => d.id === k);

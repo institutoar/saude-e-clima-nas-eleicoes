@@ -70,6 +70,10 @@ genuinamente circulares. Botões em uppercase.
 - **Colunas alinhadas entre seções**: usar `calc()` referenciando `--container`/`--pad`
   diretamente, não porcentagem simples (porcentagem num item de grid resolve contra a
   área do próprio item, não o container inteiro).
+- **Card de candidato**: todos com a mesma altura. Desktop/tablet: 404px. Celular (≤560px): layout
+  compacto (foto ao lado do nome) com altura fixa em degraus (210px; 234px até 354px de largura;
+  258px até 329px). Os degraus foram medidos pelo pior caso (nome mais longo + 4 temas); se o
+  conteúdo do card mudar, remedir em 320–560px antes de manter esses valores.
 - **Rodapé**: grid de 3 colunas (`.foot-grid`); mobile usa `display:contents` + `order`.
 - **Menu mobile**: hamburguer + drawer lateral abaixo de 820px.
 
