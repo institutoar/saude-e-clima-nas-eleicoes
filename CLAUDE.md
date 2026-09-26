@@ -21,7 +21,9 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   o `<article id="doc-conteudo">` da página correspondente. Não carregam `app.js`.
 - `site/icons/` — favicons (32px, 16px) e apple-touch-icon (180px), referenciados pelas três páginas.
 - `dados/`, `documentos/` — material de pesquisa/planilhas-fonte originais. Não fazem
-  parte do site publicado.
+  parte do site publicado. Guardam só a versão vigente, com nomes estáveis (sem versão no
+  nome; versões anteriores ficam no histórico do git). `documentos/interno/` está no
+  `.gitignore`: documentos de trabalho com comentários da equipe, nunca commitar.
 
 ## Identidade visual (tokens em `:root`, no topo do `styles.css`)
 

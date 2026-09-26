@@ -29,7 +29,9 @@ completa está descrita no próprio site (botões "Ver metodologia" e "Nota téc
 - `dados/` — planilhas-fonte da pesquisa e os scripts que geram `site/dados.js` a
   partir delas.
 - `documentos/` — metodologia completa, nota metodológica e nota de defeso entregues
-  pela equipe de pesquisa.
+  pela equipe de pesquisa. Só a versão vigente fica no repositório, com nome sem versão
+  (a versão está na capa de cada documento; as anteriores estão no histórico do git).
+  `documentos/interno/` é material de trabalho e não vai para o git.
 
 ## Rodando localmente
 
