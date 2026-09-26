@@ -141,6 +141,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* ---------- ferramenta (largura total) ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:32px;padding-top:40px;border-top:1px solid var(--rule)}
+.filters-row{display:flex;flex-wrap:wrap;gap:14px}
 .filters button,.dlg-filters button{background:transparent;border:1px solid var(--line-control);border-radius:4px;padding:12px 26px;font-size:15px;font-weight:700;text-transform:uppercase}
 .filters button{padding:12px 24px;font-size:12px;letter-spacing:.08em}
 .filters button:hover,.dlg-filters button:hover{border-color:var(--ink)}
@@ -317,6 +318,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (max-width:560px){
   .cards,.nums-grid,.temas-grid{grid-template-columns:1fr}
   .tema{min-height:0;padding:28px}
+  .filters{gap:16px}
+  .filters-row{flex-wrap:nowrap;gap:10px;width:100%;overflow-x:auto;scrollbar-width:none}
+  .filters-row::-webkit-scrollbar{display:none}
+  .filters-row button{flex:none}
   .filters .status{margin-left:0;width:100%}
   /* card compacto (celular): foto ao lado do nome, dados embaixo; todos com a mesma altura */
   .card{height:210px;padding:20px;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:16px}
@@ -375,6 +380,7 @@ html:has(dialog[open]){overflow:hidden}
 .nat-bar-item{display:inline-flex;align-items:center;gap:6px}
 .nat-bar-item i{width:8px;height:8px;border-radius:50%;flex:none}
 .dlg-filters::-webkit-scrollbar{display:none}
+.filters-row.mais,.dlg-filters.mais{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
 .dlg-filters:empty,.dlg-status:empty{display:none}
 .dlg-filters button{flex:none;padding:8px 16px;font-size:14px}
 .dlg-filters button.off,.dlg-filters button.off:hover{opacity:.45;border-style:dashed;border-color:var(--line-control);cursor:default}

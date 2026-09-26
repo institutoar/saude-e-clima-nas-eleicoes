@@ -51,7 +51,19 @@ const doGrupo = id => CANDS.filter(c => c.disputa === id).sort((a, b) => a.titul
 const CHIPS = [{id:'all', rotulo:'Todas', n:CANDS.length}, ...DISP.map(d => ({id:d.id, rotulo:d.rotulo, n:doGrupo(d.id).length}))];
 filters.setAttribute('role', 'group');
 filters.setAttribute('aria-label', 'Filtrar por disputa');
-filters.innerHTML = CHIPS.map((c, i) => `<button type="button" data-k="${c.id}" aria-pressed="${c.id === 'all'}">${c.rotulo}<span class="n">${c.n}</span></button>`).join('') + '<span class="status" id="live" aria-live="polite"></span>';
+filters.innerHTML = '<div class="filters-row">' + CHIPS.map((c, i) => `<button type="button" data-k="${c.id}" aria-pressed="${c.id === 'all'}">${c.rotulo}<span class="n">${c.n}</span></button>`).join('') + '</div><span class="status" id="live" aria-live="polite"></span>';
+
+/* degradê na borda direita enquanto ainda há filtros fora da tela (linha rolável) */
+const REDUZIDO = matchMedia('(prefers-reduced-motion: reduce)');
+function fadeRolavel(el){
+  const atualizar = () => el.classList.toggle('mais', el.scrollWidth - el.clientWidth - el.scrollLeft > 2);
+  el.addEventListener('scroll', atualizar, {passive:true});
+  if('ResizeObserver' in window) new ResizeObserver(atualizar).observe(el);
+  atualizar();
+  return atualizar;
+}
+const centralizar = b => b.scrollIntoView({inline:'center', block:'nearest', behavior: REDUZIDO.matches ? 'auto' : 'smooth'});
+fadeRolavel(filters.firstElementChild);
 
 /* avatar: foto (quando houver) ou iniciais; só sigla -> a própria sigla */
 function avatarDe(c){
@@ -105,6 +117,7 @@ filters.addEventListener('click', e => {
   const b = e.target.closest('button'); if(!b) return;
   filters.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
   render();
+  centralizar(b);
   /* feedback de que o filtro rodou, mesmo quando a parte visível da lista não muda */
   cards.classList.remove('swap'); void cards.offsetWidth; cards.classList.add('swap');
 });
@@ -115,6 +128,7 @@ const dlg = $('cand');
 const body = $('cand-body');
 const fil = $('cand-filters');
 const pop = $('pop');
+const fadeFil = fadeRolavel(fil);
 const TEMA = Object.fromEntries(D.temas.map(t => [t.id, t]));
 const NAT = Object.fromEntries(D.naturezas.map(n => [n.id, n.rotulo]));
 const ATR = D.atributos[0];   // meta quantificada
@@ -178,12 +192,15 @@ function renderCorpo(){
   }
   const temas = temasDe(c);   // temas com contagem oficial > 0 (define o que fica clicável)
   if(!temas.includes(atual.tema)) atual.tema = 'todos';
+  const rolou = fil.scrollLeft;   // o innerHTML abaixo recria os botões: preserva a posição da rolagem
   /* os 4 temas aparecem sempre, na mesma ordem; contagem é sempre a oficial (completa para as 34) */
   fil.innerHTML = [{id:'todos', rotulo:'Todos', n:c.contagens.total}, ...D.temas.map(t => ({id:t.id, rotulo:t.curto, n:c.contagens[t.id]}))]
     .map(x => {
       const off = x.id !== 'todos' && x.n === 0;
       return `<button type="button" data-k="${x.id}" aria-pressed="${x.id === atual.tema}"${off ? ' class="off" aria-disabled="true" title="Nenhum trecho deste tema no programa"' : ''}>${x.rotulo}<span class="n">${x.n}</span></button>`;
     }).join('');
+  fil.scrollLeft = rolou;
+  fadeFil();
   const idsComTexto = temasComTexto(c);
   const ids = (atual.tema === 'todos' ? temas : [atual.tema]).filter(id => idsComTexto.includes(id));
   const totalTema = atual.tema === 'todos' ? c.contagens.total : c.contagens[atual.tema];
@@ -200,7 +217,6 @@ function lerHash(){
   return m && CANDS.some(c => c.id === m[1]) ? {id:m[1], tema:m[2] || 'todos'} : null;
 }
 /* fade ao esconder: espera a animação terminar antes de fechar o <dialog> */
-const REDUZIDO = matchMedia('(prefers-reduced-motion: reduce)');
 function esconder(){
   if(!dlg.open) return;
   if(REDUZIDO.matches){ dlg.close(); return; }
@@ -242,6 +258,7 @@ fil.addEventListener('click', e => {
   const b = e.target.closest('button'); if(!b || b.getAttribute('aria-disabled') === 'true') return;
   atual.tema = b.dataset.k;
   renderCorpo();
+  centralizar(fil.querySelector('[aria-pressed="true"]'));
   body.scrollTop = 0;
   body.classList.remove('swap'); void body.offsetWidth; body.classList.add('swap');
   histReplace(history.state, hashDe());
