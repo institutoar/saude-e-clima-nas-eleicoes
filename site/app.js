@@ -14,15 +14,19 @@ document.querySelectorAll('[data-fill]').forEach(el => { el.textContent = FILL[e
 
 /* ---------- números ---------- */
 const NUMS = [
-  {n:1, suf:'%', t:'dos compromissos traz propostas claras, com custos e prazos'},
-  {n:7, suf:'', t:'candidatos não trazem nada sobre meio ambiente'},
-  {n:11, suf:'%', t:'dos planos abordaram os quatro temas ambientais escolhidos'},
-  {n:26, suf:'%', t:'dos candidatos estabelecem relação entre clima e saúde'},
-  {n:79, suf:'%', t:'dos planos mencionam pelo menos um dos quatro grandes temas ambientais'},
-  {n:80, suf:'%', t:'dos programas de governo ignoram poluição do ar'}
+  {n:0, suf:'', t:'dos 827 trechos contesta a mudança do clima ou a ação climática'},
+  {n:6, suf:'', t:'dos 827 trechos fixam meta com número, percentual ou prazo verificável, em quatro dos 34 planos'},
+  {n:79, suf:'%', t:'dos planos mencionam pelo menos um dos quatro temas'},
+  {n:12, suf:'%', t:'dos planos tratam dos quatro temas'},
+  {n:26, suf:'%', t:'dos planos relacionam clima e saúde; em quatro deles a relação aparece em um compromisso'},
+  {n:7, suf:'', t:'dos 34 planos trazem poluição do ar, em 16 trechos'}
 ];
+
 const numsEl = $('nums');
 numsEl.innerHTML = NUMS.map(x => `<div class="num"><strong data-n="${x.n}" data-suf="${x.suf}">${pt(x.n)}${x.suf}</strong><p>${x.t}</p></div>`).join('');
+/* par de números da decisão de 26/09: os trechos do registro dividem parágrafos, então há menos passagens que trechos */
+const OFI = D.oficial;
+$('nums-base').textContent = `Base: ${pt(OFI.trechos)} trechos em ${pt(OFI.paragrafo.passagens)} passagens distintas, de ${OFI.arquivos} arquivos PDF, dos planos de ${OFI.candidaturas} candidaturas.`;
 /* entrada única: os números sobem quando a seção aparece na tela */
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
   const els = [...numsEl.querySelectorAll('strong')];
@@ -85,7 +89,7 @@ $('tlegend').innerHTML = '<span class="tl-label">Legenda dos temas</span>' + D.t
 
 /* filete de temas: proporção dos trechos de cada candidatura por tema (contagem oficial, completa) */
 function dadosCard(c){
-  if(c.estado === 'sem_ocorrencia') return {bars:'', resumo:'<p class="card-none">Nenhum dos quatro temas</p>'};
+  if(c.estado === 'sem_ocorrencia') return {bars:'', resumo:'<p class="card-none">Não localizamos menção aos quatro temas</p>'};
   const porTema = D.temas.map(t => ({t, n:c.contagens[t.id]})).filter(x => x.n);
   const n = c.contagens.total;
   const bars = `<div class="tbar" aria-hidden="true">${porTema.map(x => `<i style="flex:${x.n} 1 0;background:${TCOR[x.t.id]}"></i>`).join('')}</div>`
@@ -187,7 +191,7 @@ function renderCorpo(){
   fecharPop();
   if(c.estado === 'sem_ocorrencia'){
     fil.innerHTML = ''; $('cand-status').textContent = '';
-    body.innerHTML = '<p class="dlg-empty">Nenhum dos quatro temas aparece no programa desta candidatura.</p>';
+    body.innerHTML = '<p class="dlg-empty">Não localizamos menção aos quatro temas neste plano.</p>';
     return;
   }
   const temas = temasDe(c);   // temas com contagem oficial > 0 (define o que fica clicável)

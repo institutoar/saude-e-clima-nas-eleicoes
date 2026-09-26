@@ -12202,10 +12202,10 @@ window.DADOS = {
    "nome": "Roberto Rocha",
    "sigla": "PRTB",
    "titulo": "Roberto Rocha",
-   "subtitulo": "PRTB",
+   "subtitulo": "PRTB · registro em recurso",
    "foto": "fotos/MA-07.jpg",
-   "marcador": null,
-   "situacao": null,
+   "marcador": "†",
+   "situacao": "Indeferido com recurso pendente",
    "estado": "completo",
    "contagens": {
     "mitigacao": 7,

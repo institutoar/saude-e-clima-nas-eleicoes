@@ -69,12 +69,14 @@ NOME_URNA = {
     'RS-05': 'Zucco',
 }
 # registro indeferido com recurso pendente na data de corte. A base de 26/09 só declara isso em texto livre
-# (notas da aba candidaturas) e não traz a situação por candidatura: as datas abaixo são as da entrega anterior.
-# Para as demais, `situacao` fica None (o campo não é usado pelo site).
+# (notas da aba candidaturas) e não traz a situação por candidatura. As datas de RS-07, SP-06 e MA-08 são as da
+# entrega anterior; a de MA-07 (Roberto Rocha) não consta na base e fica sem data. Para as demais, `situacao`
+# fica None (o campo não é usado pelo site).
 INDEFERIDAS = {
     'RS-07': 'Indeferido com recurso pendente (21/09/2026)',
     'SP-06': 'Indeferido com recurso pendente (20/09/2026)',
     'MA-08': 'Indeferido com recurso pendente (21/09/2026)',
+    'MA-07': 'Indeferido com recurso pendente',   # Roberto Rocha (PRTB), TRE-MA, 14/09: a base não informa a data do recurso
 }
 
 def partido_nome(texto):

@@ -22,4 +22,4 @@ Frase registrada dentro do parágrafo (para a exibição em três níveis):
   ids sem frase localizada: BR-001, BR-005, BR-008, BR-014, BR-021, BR-030, BR-066, BR-081, BR-084, BR-097, BR-120, BR-133, BR-142, RS-071, RS-076, RS-101, RS-153, RS-154, RS-185, RS-194, RS-196, RS-199, RS-204, RS-223, RS-227, RS-228, RS-233, RS-235, RS-255, RS-326, RS-341, RS-342, RS-345, RS-348, RS-355, RS-356, RS-370, RS-373, RS-381, RS-389, SP-028, SP-031, SP-040, SP-045, SP-051, SP-057, SP-063, SP-103, MA-004, MA-008, MA-015, MA-018, MA-021, MA-023, MA-030, MA-032, MA-034, MA-036, MA-038, MA-066, MA-067, MA-082, MA-083, MA-085
 Metas quantificadas por trecho: 6 (oficial 6) OK  ['BR-087', 'BR-093', 'BR-115', 'SP-011', 'MA-067', 'MA-081']
 Termos sem ocorrência (dicionário v3.3): 41 OK  [a aba da base traz 39, lista de 22/09; não usada]
-Candidaturas marcadas com † (recurso pendente): ['SP-06', 'RS-07', 'MA-08']
+Candidaturas marcadas com † (recurso pendente): ['SP-06', 'RS-07', 'MA-07', 'MA-08']
