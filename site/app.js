@@ -371,6 +371,7 @@ const drawer = $('drawer');
 const drawerBackdrop = $('drawer-backdrop');
 function abrirDrawer(){
   drawer.hidden = false; drawerBackdrop.hidden = false;
+  void drawer.offsetWidth;   // força o layout antes de animar (o menu fechado é display:none)
   document.body.style.overflow = 'hidden';
   burger.setAttribute('aria-expanded', 'true');
   requestAnimationFrame(() => { drawer.classList.add('in'); drawerBackdrop.classList.add('in'); });
