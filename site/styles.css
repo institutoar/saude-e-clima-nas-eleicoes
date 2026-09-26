@@ -373,7 +373,24 @@ html:has(dialog[open]){overflow:hidden}
 .doc-head h2{font-family:var(--head);font-weight:600;font-size:26px;letter-spacing:-.01em}
 .doc-body-inner{font-size:17px;line-height:1.6;color:var(--ink)}
 .doc-body-inner p + p{margin-top:18px}
+.doc-body-inner :is(ul,ol) + p{margin-top:18px}
 .doc-body-inner h3{margin-top:40px;margin-bottom:14px;padding-top:28px;border-top:1px solid var(--rule-strong);font-family:var(--head);font-weight:600;font-size:23px;letter-spacing:-.01em}
+.doc-body-inner h4{margin-top:28px;margin-bottom:10px;font-family:var(--head);font-weight:600;font-size:16px;color:var(--ink)}
+.doc-body-inner h4 + p{margin-top:0}
+.doc-body-inner a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.doc-body-inner a:hover{color:var(--brand-ink)}
+.doc-lista{margin:14px 0 0;padding-left:22px;display:grid;gap:10px}
+.doc-body-inner .doc-exemplo{margin-top:12px;padding-left:20px;font-size:16px;line-height:1.55}
+.doc-exemplo span{color:var(--mute)}
+.doc-tabela{margin-top:20px;overflow-x:auto;background:linear-gradient(90deg,var(--deep) 30%,transparent) left center/40px 100% no-repeat local,linear-gradient(270deg,var(--deep) 30%,transparent) right center/40px 100% no-repeat local,linear-gradient(90deg,var(--rule),transparent) left center/14px 100% no-repeat scroll,linear-gradient(270deg,var(--rule),transparent) right center/14px 100% no-repeat scroll}
+.doc-tabela + .doc-tabela{margin-top:28px}
+.doc-body-inner .doc-tabela + p{margin-top:24px}
+.doc-tabela table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.4;font-variant-numeric:tabular-nums}
+.doc-tabela th,.doc-tabela td{padding:10px 12px;border-bottom:1px solid var(--rule);text-align:right}
+.doc-tabela th:first-child,.doc-tabela td:first-child{padding-left:0;text-align:left;min-width:170px}
+.doc-tabela th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);vertical-align:bottom;border-bottom:1px solid var(--rule-strong)}
+.doc-tabela .total td{font-weight:700;border-bottom:0}
+.doc-tabela:focus-visible{outline:2px solid var(--brand-ink);outline-offset:4px}
 .doc-subtitulo{margin-top:0;margin-bottom:24px;font-family:var(--head);font-weight:600;font-size:19px;line-height:1.4;color:var(--ink)}
 .doc-nota-metodo{margin-top:18px;font-size:14px;line-height:1.6;color:var(--mute)}
 .matriz-titulo{margin-top:28px;font-family:var(--head);font-weight:600;font-size:16px;color:var(--ink)}

@@ -278,19 +278,166 @@ dlg.addEventListener('cancel', e => { e.preventDefault(); if(popBtn) fecharPop()
 dlg.addEventListener('close', () => { fecharPop(); atual = null; empurrado = false; dlg.classList.remove('saindo'); });
 { const h = lerHash(); if(h) abrir(h.id, h.tema); }                     // link direto
 
-/* ---- dialog genérico de documento (metodologia / nota técnica) — conteúdo ainda é rascunho ---- */
+/* ---- dialog genérico de documento (metodologia / nota técnica) ---- */
 const DOCS = {
   metodologia: {
     titulo: 'Metodologia',
     corpo: `
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <h3>Levantamento e critérios</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
-      <h3>Classificação dos trechos</h3>
-      <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
-      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.</p>
+      <p class="doc-subtitulo">Como os planos de governo registrados no TSE foram lidos, o que foi encontrado e o que esses resultados permitem — e não permitem — concluir.</p>
+
+      <h3>1. O que é este trabalho</h3>
+      <p>Todo candidato a presidente ou a governador é obrigado por lei a registrar na Justiça Eleitoral um plano de governo. Esses documentos são públicos, mas são longos, desiguais entre si e raramente lidos por inteiro. Este trabalho responde a uma pergunta simples sobre eles: o que os planos de governo das eleições de 2026 dizem — e o que não dizem — sobre mudança climática, poluição do ar e a relação entre clima e saúde?</p>
+      <p>A resposta não é uma nota nem um ranking. É um registro: para cada plano, a lista dos trechos em que algum desses temas aparece, com a página e a transcrição literal, para que qualquer pessoa possa abrir o documento original e conferir. O projeto não avalia se um plano é bom ou ruim, nem se as propostas são suficientes. Ele localiza, classifica e torna verificável o que está escrito.</p>
+      <p>Foram analisados os planos de todas as candidaturas à Presidência da República e aos governos do Rio Grande do Sul, de São Paulo e do Maranhão: 34 candidaturas, 37 arquivos, 2.319 páginas e 827 trechos registrados.</p>
+
+      <h3>2. Quais planos entram</h3>
+      <p>O universo é toda candidatura com plano de governo registrado no Tribunal Superior Eleitoral (TSE) para as quatro disputas. Os arquivos vêm exclusivamente do portal de dados abertos do TSE, nunca de sites de campanha ou de redes sociais. A data de corte é 22 de setembro de 2026, às 4h42 (horário de Brasília): o registro reflete os planos disponíveis naquele momento.</p>
+      <p>Cada arquivo recebe uma impressão digital (código SHA-256) no momento da coleta. Esse código permite provar, a qualquer tempo, que o documento analisado é exatamente o que estava registrado no TSE, e identificar com segurança cada parte de planos registrados em mais de um arquivo.</p>
+      <h4>Quando uma candidatura sai do registro</h4>
+      <p>Uma candidatura só sai do monitor quando sua exclusão da disputa é definitiva: registro indeferido sem recurso pendente, ou renúncia. Enquanto houver recurso ou julgamento em aberto, o plano permanece, com a situação da candidatura informada na data de corte. É a regra do projeto, e não a presença do arquivo no portal do TSE, que define quem entra.</p>
+      <p>Pela regra, a candidatura de Pablo Marçal (PRTB) à Presidência, indeferida e seguida de renúncia, não faz parte da pesquisa. O partido pediu ao TSE uma substituição do candidato: Leonardo Avalanche (PRTB) foi registrado mas , como essa decisão aguardava julgamento na data de corte, o plano foi incluído e analisado pelo mesmo processo que os demais.</p>
+      <p>Candidaturas indeferidas por qualquer motivo, mas que ainda estavam no prazo de recursos, foram mantidas.</p>
+      <h4>Como cada candidatura é identificada</h4>
+      <p>O portal do TSE identifica cada plano apenas por um número de protocolo. O nome da candidatura é estabelecido, nesta ordem, pelo texto do próprio plano, pelos dados internos do arquivo e, quando nenhum dos dois basta, pela consulta ao sistema oficial de candidaturas do TSE, exigindo correspondência exata do número de protocolo. Nenhum nome é atribuído por semelhança de tema ou de estilo. Todas as 34 candidaturas foram identificadas por esse critério.</p>
+
+      <h3>3. Como os planos são lidos</h3>
+      <h4>Um dicionário fechado</h4>
+      <p>A busca pelos temas nos planos é feita por um dicionário: uma lista fechada de termos e expressões que indicam que um texto trata de clima, de poluição do ar ou da relação entre clima e saúde. Um leitor, por mais cuidadoso, chega a cada plano com expectativas e pode reconhecer um tema com mais facilidade em um documento do que em outro. O dicionário aplica exatamente os mesmos termos, da mesma forma, a todos os planos. Essa é a base da isenção. E o resultado pode ser repetido: com a mesma lista e os mesmos arquivos, qualquer pessoa chega aos mesmos trechos.</p>
+      <p>Para que todos os planos fossem lidos com o mesmo critério, foi preciso fechar a lista antes da busca. Isso é uma escolha e também um limite: um plano que trate desses temas com palavras fora da lista pode não ter esse conteúdo registrado.</p>
+      <p>Nenhum termo entrou na lista por parecer adequado. A maior parte do vocabulário vem de leis e normas de Estado brasileiras, como a Política Nacional de Qualidade do Ar (Lei 14.850/2024) e a Resolução Conama 506/2024, e de referências internacionais, como as diretrizes de qualidade do ar da Organização Mundial da Saúde. <a href="https://github.com/institutoar/saude-e-clima-nas-eleicoes/blob/main/dados/dicionario.xlsx" target="_blank" rel="noopener">A lista completa, com a origem de cada termo, é pública.</a></p>
+      <h4>Três funções dos termos</h4>
+      <ul class="doc-lista">
+        <li><b>Termo-gatilho,</b> como “mudança climática” ou “poluentes atmosféricos”: sozinho, já indica um trecho a ser analisado.</li>
+        <li><b>Termo-objeto,</b> como “enchente” ou “seca”: nomeia um fenômeno que fontes públicas reconhecem como ligado ao clima. O trecho só é mantido quando essa ligação é feita pelo próprio texto ou por uma fonte pública indicada.</li>
+        <li><b>Termo de contexto,</b> como “saúde” ou “SUS”: não indica trecho algum, apenas ajuda a decidir sobre um trecho já encontrado. É isso que impede que toda menção à saúde vire, automaticamente, uma menção ao clima.</li>
+      </ul>
+      <p>O dicionário foi testado com a leitura manual integral de um plano de 100 páginas: das passagens que o leitor considerou relevantes, a busca encontrou 93 em cada 100.</p>
+      <h4>Inteligência artificial e revisão humana</h4>
+      <p>Pela quantidade de texto, a primeira classificação dos trechos foi feita com apoio de inteligência artificial, seguindo as mesmas regras escritas para todos os planos. Os casos mais sensíveis e uma amostra dos demais foram revisados por uma pessoa, que teve a palavra final. A seção 6 descreve essa verificação.</p>
+
+      <h3>4. Os quatro temas</h3>
+      <p>Cada trecho mantido é atribuído a um de quatro temas:</p>
+      <ul class="doc-lista">
+        <li><b>Mitigação climática:</b> o que reduz emissões de gases de efeito estufa, como transição energética, baixo carbono e descarbonização.</li>
+        <li><b>Adaptação e eventos extremos:</b> o que lida com secas, enchentes, calor e desastres, e com a preparação para eles.</li>
+        <li><b>Poluição do ar:</b> o que trata da qualidade do ar e da emissão de poluentes.</li>
+        <li><b>Impactos do clima na saúde:</b> trechos em que um dano à saúde humana — doença, morte, agravo, sobrecarga do sistema de saúde — é afirmado como consequência do clima, de eventos extremos ou da poluição do ar.</li>
+      </ul>
+      <p>Os temas derivam das categorias usadas pela Organização Mundial da Saúde e pela Global Climate and Health Alliance para avaliar a presença da saúde nos compromissos climáticos nacionais. Duas dessas categorias — governança climática e ação do próprio setor saúde — não são contadas nos resultados, para manter os temas comparáveis entre cargos com competências tão diferentes. Seus trechos continuam visíveis no perfil de cada plano.</p>
+
+      <h3>5. Como cada trecho é classificado</h3>
+      <p>Encontrado um trecho, a primeira pergunta é se ele deve ser mantido. Quatro razões levam ao descarte: a palavra aparece com outro sentido (“clima organizacional”); o trecho não é programático (um sumário, um título solto, uma legenda); o assunto é de outro domínio (um deslizamento de rejeitos de mineração não é evento climático); ou o trecho repete outro já registrado no mesmo plano. Cada descarte fica registrado com sua razão.</p>
+      <p>O trecho mantido recebe um tema, um estatuto e uma natureza.</p>
+      <h4>Estatuto</h4>
+      <p><b>Enunciado</b>, quando o plano usa o vocabulário do próprio tema. <b>Atribuível</b>, quando o plano descreve um fenômeno — uma enchente, uma seca — que fontes públicas reconhecem como ligado ao clima, sem usar esse vocabulário. Nesses casos, o vínculo com o tema vem de uma fonte pública nomeada, e não da interpretação de quem lê.</p>
+      <h4>Classificação</h4>
+      <p>A natureza indica o que o trecho faz com o tema. Todos os exemplos abaixo são transcrições dos planos.</p>
+      <p><b>Compromisso.</b> O plano anuncia o que fará no futuro, e o tema é um dos objetos da ação.</p>
+      <p class="doc-exemplo"><em>“Teremos a meta de zerar o desmatamento ilegal até 2029…”</em> <span>(PL, Presidência, p. 58)</span></p>
+      <p class="doc-exemplo"><em>“…continuaremos trabalhando para alcançar o desmatamento líquido zero até 2030, meta que reafirmamos.”</em> <span>(PT, Presidência, p. 70)</span></p>
+      <p><b>Relato.</b> O plano descreve uma situação, ou relata o que o governo atual já fez ou está fazendo — um programa em andamento, uma lei já sancionada. É o relato do próprio plano, mesmo quando soa como conquista.</p>
+      <p class="doc-exemplo"><em>“28 meses se passaram e continuamos vulneráveis. Há pouco mais de dois anos nosso estado vivenciou 185 mortos, 23 desaparecidos…”</em> <span>(PSTU, Rio Grande do Sul, p. 30)</span></p>
+      <p class="doc-exemplo"><em>“Aprovamos a Política Nacional de Manejo Integrado do Fogo e mobilizamos mais de meio bilhão de reais do Fundo Amazônia…”</em> <span>(PT, Presidência, p. 69)</span></p>
+      <p><b>Citação.</b> O termo aparece, mas o trecho não afirma nada sobre ele.</p>
+      <p class="doc-exemplo"><em>“Para que o Brasil ocupe posição de liderança em áreas estratégicas como inteligência artificial, transformação digital, biotecnologia, fármacos avançados e transição energética…”</em> <span>(PT, Presidência, p. 54)</span></p>
+      <p><b>Contrário.</b> O trecho nega ou contesta a mudança do clima ou a ação climática. A busca procurou linguagem explícita desse tipo — como “farsa climática” ou a saída do Acordo de Paris — nos 37 arquivos. Nenhum trecho recebeu esta natureza, e esse zero é reportado como resultado da busca.</p>
+      <h4>Fronteira entre adaptação e impactos na saúde</h4>
+      <p>Muitos trechos sobre desastres mencionam pessoas. A regra: o trecho vai para impactos na saúde quando o dano à saúde humana é o próprio objeto do que a frase afirma; permanece em adaptação quando o objeto é a ação de proteção e o dano aparece apenas como a perda que ela pretende evitar; e um termo de saúde que apenas nomeia um setor, órgão ou serviço, sem dano afirmado, não gera o tema.</p>
+
+      <h3>6. Como o resultado foi verificado</h3>
+      <p>A classificação foi feita duas vezes, de forma independente, com apoio de inteligência artificial: a segunda vez sem acesso à primeira, com os trechos em ordem embaralhada. Onde as duas concordaram, o resultado foi considerado estável; onde divergiram, as duas leituras foram examinadas à luz das regras e a decisão foi registrada com justificativa. A concordância foi de 97,6% na atribuição do tema e de 93% na natureza do trecho — o tema é o atributo mais estável; a natureza, o menos estável.</p>
+      <p>Em seguida, a revisão humana concentrou-se onde um erro mudaria o resultado publicado. Foram lidos integralmente todos os casos de ambiguidade e todos os trechos dos dois temas mais raros, poluição do ar e impactos na saúde. Os demais foram lidos por amostra. No total, 169 itens passaram por revisão humana com justificativa escrita, e os 169 foram confirmados. Para os temas lidos por inteiro, todos os trechos foram confirmados por revisão humana; para os demais, o erro estimado fica abaixo de 8%.</p>
+      <p>Por fim, as transcrições revisadas foram conferidas contra os arquivos originais: todas aparecem, palavra por palavra, na página indicada.</p>
+
+      <h3>7. Resultados</h3>
+      <h4>Os planos</h4>
+      <p>Os planos vão de 7 a 290 páginas. Dois partidos, PSTU e PCO, apresentaram candidatura nas quatro disputas; o PCO registrou o mesmo documento partidário de sete páginas em todas.</p>
+      <div class="doc-tabela" role="region" tabindex="0" aria-label="Tabela dos planos por disputa">
+        <table>
+          <thead><tr><th>Disputa</th><th>Candidaturas</th><th>Páginas</th><th>Menor plano</th><th>Maior plano</th><th>Média</th></tr></thead>
+          <tbody>
+            <tr><td>Presidência da República</td><td>13</td><td>836</td><td>7</td><td>200</td><td>64,3</td></tr>
+            <tr><td>Governo do Rio Grande do Sul</td><td>7</td><td>383</td><td>7</td><td>107</td><td>54,7</td></tr>
+            <tr><td>Governo de São Paulo</td><td>6</td><td>418</td><td>7</td><td>182</td><td>69,7</td></tr>
+            <tr><td>Governo do Maranhão</td><td>8</td><td>682</td><td>7</td><td>290</td><td>85,3</td></tr>
+            <tr class="total"><td>Total</td><td>34</td><td>2.319</td><td>7</td><td>290</td><td>68,2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Os 37 arquivos correspondem a 34 candidaturas porque um plano de São Paulo foi registrado em três arquivos e um plano do Maranhão aparece duas vezes no portal do TSE, com conteúdo idêntico. Descontadas essas repetições e as três cópias adicionais do documento do PCO, o conjunto tem 2.298 páginas distintas.</p>
+      <h4>O que foi encontrado</h4>
+      <p>O registro tem 827 trechos nos quatro temas. Vinte e sete dos 34 planos tratam de pelo menos um tema; sete não tratam de nenhum. Quatro planos tratam dos quatro temas: PSD e UP na Presidência, PCB em São Paulo e PSTU no Maranhão.</p>
+      <div class="doc-tabela" role="region" tabindex="0" aria-label="Tabela de trechos por tema">
+        <table>
+          <thead><tr><th>Tema</th><th>Trechos</th><th>Planos com menção</th><th>Planos sem menção</th></tr></thead>
+          <tbody>
+            <tr><td>Adaptação e eventos extremos</td><td>559</td><td>27</td><td>7</td></tr>
+            <tr><td>Mitigação climática</td><td>232</td><td>25</td><td>9</td></tr>
+            <tr><td>Impactos do clima na saúde</td><td>20</td><td>9</td><td>25</td></tr>
+            <tr><td>Poluição do ar</td><td>16</td><td>7</td><td>27</td></tr>
+            <tr class="total"><td>Total</td><td>827</td><td>27</td><td>7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-tabela" role="region" tabindex="0" aria-label="Tabela de trechos por disputa e tema">
+        <table>
+          <thead><tr><th>Disputa</th><th>Trechos</th><th>Adaptação</th><th>Mitigação</th><th>Impactos na saúde</th><th>Poluição do ar</th><th>Planos sem menção</th></tr></thead>
+          <tbody>
+            <tr><td>Presidência</td><td>219</td><td>107</td><td>99</td><td>7</td><td>6</td><td>2</td></tr>
+            <tr><td>Rio Grande do Sul</td><td>389</td><td>325</td><td>56</td><td>7</td><td>1</td><td>1</td></tr>
+            <tr><td>São Paulo</td><td>114</td><td>75</td><td>34</td><td>1</td><td>4</td><td>1</td></tr>
+            <tr><td>Maranhão</td><td>105</td><td>52</td><td>43</td><td>5</td><td>5</td><td>3</td></tr>
+            <tr class="total"><td>Total</td><td>827</td><td>559</td><td>232</td><td>20</td><td>16</td><td>7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A leitura que atravessa os resultados: a porta de entrada do clima nos planos é o desastre. A adaptação aparece em todo plano que fala de clima; a mitigação vem depois, e sempre em planos que já tratam de adaptação. Poluição do ar e impactos do clima na saúde quase não aparecem: 16 e 20 trechos, em 7 e 9 planos. O Rio Grande do Sul concentra a adaptação, com 325 trechos, quase todos ligados às enchentes de 2024.</p>
+      <p>Dos 827 trechos, 471 são compromissos, 255 são relatos e 101 são citações; nenhum é contrário. Sete trechos trazem meta com número verificável e 36 indicam orçamento. Trinta e nove dos 192 termos do dicionário — entre eles material particulado, MP2,5 e poluentes climáticos de vida curta — não aparecem em nenhuma das 2.319 páginas.</p>
+
+      <h3>8. O que estes resultados não dizem</h3>
+      <p><b>Não medem mérito.</b> Um plano com mais trechos não é melhor nem mais comprometido: pode ser apenas mais longo ou mais detalhado. O plano mais longo do conjunto, com 290 páginas, tem 46 trechos; um plano gaúcho de 38 páginas tem 65.</p>
+      <p><b>Não verificam o que os planos afirmam.</b> O registro reproduz o que cada plano diz, com a transcrição literal. Não verificamos se as informações são verdadeiras. Isso vale para compromissos, relatos de gestão e diagnósticos, de qualquer candidatura.</p>
+      <p><b>Não revelam convicções.</b> O objeto é o texto do plano. Dizer que “o plano de X propõe Y” é verificável; dizer que “X se importa com Y” não é, e o projeto não o diz.</p>
+      <p><b>Uma ausência é o resultado de uma busca.</b> Quando não se localiza menção a um tema num plano, isso resulta de uma busca com um dicionário específico, na data de corte. O tema pode não ser prioridade, pode ter sido escrito com palavras fora da lista, ou pode não ser da competência do cargo. O registro não distingue entre essas possibilidades.</p>
+      <p><b>Relatos de gestão dependem de quem governa.</b> Só planos ligados ao governo em exercício podem relatar o que já está sendo feito. Isso tende a aumentar o número de trechos desses planos.</p>
+      <p><b>Cargos diferentes não se comparam diretamente.</b> Presidência e governos estaduais têm competências diferentes, e as quatro disputas são apresentadas separadamente.</p>
+      <p><b>A página indicada não é necessariamente a única.</b> Alguns planos repetem o parágrafo em várias páginas; o registro guarda uma ocorrência e indica a página em que ela aparece.</p>
+
+      <h3>9. Limitações</h3>
+      <ul class="doc-lista">
+        <li><b>Revisão por amostra em parte do volume.</b> Os temas raros e os casos ambíguos foram lidos por inteiro; nos demais, o erro foi estimado, e não eliminado.</li>
+        <li><b>Cobertura do dicionário medida, não perfeita.</b> A busca encontrou 93 de cada 100 passagens relevantes no teste. Conteúdo escrito de forma que a lista não prevê pode ficar de fora.</li>
+        <li><b>Natureza é o atributo menos estável.</b> A distinção entre compromisso e citação é a que mais depende de interpretação.</li>
+        <li><b>Contrário restrito à linguagem explícita.</b> A busca procurou negação ou contestação declarada. Um plano pode propor medidas que aumentem emissões sem usar essa linguagem, e isso não aparece como trecho contrário.</li>
+      </ul>
+
+      <h3>10. Referências</h3>
+      <h4>Vocabulário legal e técnico brasileiro</h4>
+      <ul class="doc-refs">
+        <li>Lei nº 14.850/2024 — Política Nacional de Qualidade do Ar.</li>
+        <li>Resolução Conama nº 506/2024 — padrões de qualidade do ar.</li>
+        <li>Contribuição Nacionalmente Determinada do Brasil ao Acordo de Paris (NDC, 2024).</li>
+        <li>Plano Clima e Plano Setorial de Saúde (AdaptaSUS).</li>
+        <li>DeCS — Descritores em Ciências da Saúde (BIREME/OPAS).</li>
+      </ul>
+      <h4>Referências internacionais</h4>
+      <ul class="doc-refs">
+        <li>Organização Mundial da Saúde — Diretrizes Globais de Qualidade do Ar (2021; edição OPAS em português); revisão da saúde nas NDCs (2023); critérios de qualidade para a integração da saúde nas NDCs (2025).</li>
+        <li>Global Climate and Health Alliance — Healthy NDC Scorecards (2021, 2023); Clean Air NDC Scorecard (2023).</li>
+        <li>Lancet Countdown — indicadores de engajamento público e político.</li>
+        <li>Climate Policy Radar e Climate Change Laws of the World (Grantham Research Institute, LSE; Sabin Center, Columbia).</li>
+        <li>Manifesto Project (MARPOR) — Handbook v5 (2021).</li>
+        <li>Comparative Agendas Project — codebook de tópicos.</li>
+        <li>Thomson, Royed et al. — estudos sobre cumprimento de promessas eleitorais.</li>
+        <li>McGowan et al. — PRESS 2015: Peer Review of Electronic Search Strategies.</li>
+        <li>Declaração de Clima e Saúde da COP28 (2023).</li>
+      </ul>
+      <h4>Fonte dos documentos</h4>
+      <ul class="doc-refs">
+        <li>Tribunal Superior Eleitoral — portal de dados abertos, pacotes proposta_governo_2026 por disputa.</li>
+        <li>Tribunal Superior Eleitoral — DivulgaCandContas, sistema de candidaturas.</li>
+      </ul>
+      <p>O <a href="https://github.com/institutoar/saude-e-clima-nas-eleicoes/blob/main/dados/dicionario.xlsx" target="_blank" rel="noopener">dicionário de busca</a> e a <a href="https://github.com/institutoar/saude-e-clima-nas-eleicoes/blob/main/dados/entrada/base_de_dados.xlsx" target="_blank" rel="noopener">lista de arquivos com suas impressões digitais</a> são publicados junto com este registro.</p>
     `
   },
   'nota-tecnica': {
