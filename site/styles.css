@@ -407,7 +407,7 @@ html:has(dialog[open]){overflow:hidden}
 .matriz-dim{margin:0;font-family:var(--head);font-weight:600;font-size:15px}
 .matriz-plano{margin:0;font-size:14.5px;line-height:1.6;color:var(--mute)}
 .matriz-diretriz{margin:0;font-size:15px;line-height:1.6}
-.doc-refs{margin:16px 0 0;padding-left:22px;display:grid;gap:12px;font-size:13.5px;line-height:1.6;color:var(--mute)}
+.doc-refs{margin:16px 0 0;padding-left:22px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;overflow-wrap:anywhere;font-size:13.5px;line-height:1.6;color:var(--mute)}
 .doc-refs a{color:inherit;text-decoration:underline}
 .doc-parceiro{margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
 .doc-parceiro img{display:block;width:180px;height:auto;margin-inline:auto}
