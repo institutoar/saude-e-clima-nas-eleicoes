@@ -23,8 +23,9 @@ completa está descrita no próprio site (botões "Ver metodologia" e "Nota téc
 
 ## Estrutura
 
-- `site/` — o site publicado: HTML/CSS/JS estático puro, sem build step. Ver
-  [`CLAUDE.md`](CLAUDE.md) para arquitetura, identidade visual e convenções de código.
+- `site/` — o site publicado: HTML/CSS/JS estático puro, sem build step, com a página principal e as
+  páginas de `metodologia/` e `nota-tecnica/`. Ver [`CLAUDE.md`](CLAUDE.md) para arquitetura,
+  identidade visual e convenções de código.
 - `dados/` — planilhas-fonte da pesquisa e os scripts que geram `site/dados.js` a
   partir delas.
 - `documentos/` — metodologia completa, nota metodológica e nota de defeso entregues

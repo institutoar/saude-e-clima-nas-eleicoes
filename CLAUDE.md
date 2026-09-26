@@ -15,6 +15,11 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   os números à mão sem recalcular a partir dela.
 - `site/fotos/` — as 34 fotos oficiais (TSE), nomeadas por id de candidatura
   (`BR-01.jpg` etc.). Path relativo usado em `dados.js` (`foto: "fotos/BR-01.jpg"`).
+- `site/metodologia/index.html` e `site/nota-tecnica/index.html` — páginas individuais dos dois
+  documentos. **São a fonte única do texto**: o popup da página principal busca o conteúdo delas
+  (`fetch`), então não existe cópia do texto em `app.js` nem em `index.html`. Editar o texto = editar
+  o `<article id="doc-conteudo">` da página correspondente. Não carregam `app.js`.
+- `site/icons/` — favicons (32px, 16px) e apple-touch-icon (180px), referenciados pelas três páginas.
 - `dados/`, `documentos/` — material de pesquisa/planilhas-fonte originais. Não fazem
   parte do site publicado.
 
@@ -56,8 +61,12 @@ genuinamente circulares. Botões em uppercase.
 - **Destaque de termo nos trechos**: cada trecho em `dados.js` tem `inicio`/`fim`
   (índices de caractere). Nunca re-buscar a palavra por regex/string match — os
   índices já vêm validados da planilha-fonte.
-- **Popups**: dois `<dialog>` nativos. `#cand` (candidato) é linkável por hash na URL;
-  `#doc` (Metodologia/Nota técnica) troca conteúdo via `data-doc="..."`, sem deep-link.
+- **Popups**: dois `<dialog>` nativos. `#cand` (candidato) é linkável por hash na URL. `#doc`
+  (Metodologia/Nota técnica) é aberto por links `<a href="metodologia/" data-doc="metodologia">`: clique
+  simples abre o popup com o texto buscado da página; Cmd/Ctrl+clique, sem JavaScript ou `fetch`
+  indisponível (ex.: `file://`) abrem a página. Ao adicionar um link novo pra um documento, usar esse
+  mesmo padrão (`href` + `data-doc`) e, se ele ficar dentro de `.nav`/`.drawer`, conferir que as regras de
+  link (`.nav a`, `.drawer a`) não vazam pro visual (ver `a.nav-cta`).
 - **Colunas alinhadas entre seções**: usar `calc()` referenciando `--container`/`--pad`
   diretamente, não porcentagem simples (porcentagem num item de grid resolve contra a
   área do próprio item, não o container inteiro).

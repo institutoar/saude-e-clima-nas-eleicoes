@@ -84,6 +84,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .drawer a{padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;font-weight:700;color:var(--brand-ink)}
 .drawer a[aria-current="true"]{color:var(--violet)}
 .drawer-cta{margin-top:24px;justify-content:center}
+.nav a.nav-cta,.nav a.nav-cta:hover,.hdr.on-acc .nav a.nav-cta,.hdr.on-acc .nav a.nav-cta:hover{color:#fff;text-decoration:none}
+.drawer a.nav-cta{padding:0 18px;border-bottom:0;font-size:12px;color:#fff}
 
 @media (max-width:820px){
   .nav > div{display:none}
@@ -408,6 +410,25 @@ html:has(dialog[open]){overflow:hidden}
 .doc-refs a{color:inherit;text-decoration:underline}
 .doc-parceiro{margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
 .doc-parceiro img{display:block;width:180px;height:auto;margin-inline:auto}
+/* ---------- página de documento (metodologia/, nota-tecnica/) ---------- */
+.docbar{border-bottom:1px solid var(--rule)}
+.docbar-in,.docpage-main,.docfoot{max-width:calc(760px + 2 * var(--pad));margin:0 auto;padding-inline:var(--pad)}
+.docbar-in{padding-block:20px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.docbar .brand-mark svg{height:26px}
+.docbar .ia-logo-fill{fill:var(--brand-ink)}
+.docbar-back{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);text-decoration:none}
+.docbar-back:hover{text-decoration:underline;text-underline-offset:4px}
+.docpage-main{padding-block:64px 96px}
+.docpage-main h1{margin:0 0 32px;font-family:var(--head);font-weight:600;font-size:clamp(32px,5vw,48px);letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.docfoot{padding-block:0 48px;font-size:14.5px;color:rgba(21,7,76,.72)}
+.docfoot::before{content:"";display:block;height:1px;margin-bottom:24px;background:var(--rule)}
+@media print{
+  .docbar,.docfoot{display:none}
+  .docpage-main{padding:0;max-width:none}
+  .doc-tabela{overflow:visible;background:none}
+  .doc-tabela,.matriz-item,.doc-exemplo{break-inside:avoid}
+  .doc-body-inner h3,.doc-body-inner h4{break-after:avoid}
+}
 .dlg-body .group{margin-top:36px}
 .dlg-body .group-h{margin-bottom:6px}
 .dlg-note{margin-top:20px;font-size:15px;color:var(--mute)}
