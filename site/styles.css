@@ -9,6 +9,7 @@
   --card:#F5F2FB;
   --card-2:#F5F2FB;
   --card-hover:#EDE8F9;
+  --frase:#E2DAF6;
   --ink:#443970;
   --mute:#655A87;
   --acc:#2FD4DA;
@@ -458,6 +459,14 @@ html:has(dialog[open]){overflow:hidden}
 .tr{padding:20px 0}
 .tr + .tr{border-top:1px solid var(--rule)}
 .tr-txt{font-size:17px;line-height:1.6;color:var(--ink)}
+.tr-txt mark .frase{background:transparent;padding:0}
+.frase{background:var(--frase);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 0}
+.tr:not(.aberto) .longe{display:none}
+.tr.aberto .elipse{display:none}
+.tr-mais{margin-top:6px;padding:10px 0;min-height:44px;border:0;background:none;font-size:14px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tr-mais:hover{color:var(--brand-ink)}
+.tr-mais + .tr-meta{margin-top:4px}
+.dlg-aviso{margin:14px 0 8px;font-size:14px;line-height:1.5;color:var(--mute)}
 .tr-txt mark{background:#FFC20E;color:var(--brand-ink);border-radius:2px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .tr-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
 .tr-pag{margin-left:auto;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}

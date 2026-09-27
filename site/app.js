@@ -157,12 +157,78 @@ let empurrado = false;   // true quando abrimos o popup criando uma entrada no h
 const histPush = h => { try { history.pushState({modal:true}, '', h); return true; } catch { return false; } };
 const histReplace = (st, h) => { try { history.replaceState(st, '', h); } catch {} };
 
-const marcarTermo = t =>
-  (t.inicio == null || t.fim == null) ? esc(t.texto) :
-  esc(t.texto.slice(0, t.inicio)) + '<mark>' + esc(t.texto.slice(t.inicio, t.fim)) + '</mark>' + esc(t.texto.slice(t.fim));
+/* ---------- passagens ----------
+   Cada trecho é um parágrafo do plano. Trechos do mesmo tema e da mesma natureza que dividem o mesmo parágrafo
+   viram um cartão só (todos os termos destacados). Exibição em três níveis: parágrafo inteiro em cor normal,
+   frase classificada com fundo lilás (`.frase`), termo em amarelo (`<mark>`). Sem fundo = a frase classificada
+   não é localizável no parágrafo (ou o trecho é só o fragmento registrado): não afirmamos qual frase foi classificada. */
+const LIMITE_LONGO = 1200;   // acima disso o parágrafo abre recolhido, só com o entorno da frase classificada
+const ORDEM_NAT = D.naturezas.map(n => n.id);
 
-const trHTML = t =>
-  `<article class="tr"><p class="tr-txt">${marcarTermo(t)}</p><div class="tr-meta"><button type="button" class="selo" data-selo="${t.natureza}" aria-expanded="false">${NAT[t.natureza]}</button>${t.metaQuantificada ? `<button type="button" class="selo attr" data-selo="metaQuantificada" aria-expanded="false">${ATR.rotulo}</button>` : ''}<span class="tr-pag">p. ${t.pagina}</span></div></article>`;
+function agruparPassagens(trechos){
+  const mapa = new Map(), lista = [];
+  trechos.forEach(t => {
+    const k = t.origem === 'paragrafo' ? t.tema + '|' + t.natureza + '|' + t.texto : 'f|' + t.id;
+    let g = mapa.get(k);
+    if(!g){ g = {texto:t.texto, trechos:[]}; mapa.set(k, g); lista.push(g); }
+    g.trechos.push(t);
+  });
+  return lista;
+}
+
+function passagemHTML(g){
+  const txt = g.texto, len = txt.length;
+  const marks = g.trechos.filter(t => t.inicio != null && t.fim != null).map(t => [t.inicio, t.fim]);
+  let frases = g.trechos.every(t => t.fraseInicio != null) ? g.trechos.map(t => [t.fraseInicio, t.fraseFim]).sort((x, y) => x[0] - y[0]) : [];
+  /* frases vizinhas (só espaço entre elas) viram uma faixa contínua: evita um furo branco de 1 caractere */
+  frases = frases.reduce((acc, f) => {
+    const u = acc[acc.length - 1];
+    if(u && f[0] <= u[1] + 2 && !txt.slice(u[1], f[0]).trim()) u[1] = Math.max(u[1], f[1]); else acc.push([...f]);
+    return acc;
+  }, []);
+  const longo = len > LIMITE_LONGO && (frases.length || marks.length) > 0;
+  let showA = 0, showB = len;
+  const base = frases.length ? frases : marks;
+  if(longo && base.length){
+    let a = Math.min(...base.map(x => x[0])), b = Math.max(...base.map(x => x[1]));
+    if(b - a > 1400){ const m = Math.min(...marks.map(x => x[0])); a = Math.max(0, m - 400); b = Math.min(len, m + 1000); }
+    const ini = Math.max(0, a - 250), fim = Math.min(len, b + 250);
+    showA = ini === 0 ? 0 : txt.lastIndexOf(' ', ini) + 1;
+    const f = fim >= len ? -1 : txt.indexOf(' ', fim);
+    showB = f < 0 ? len : f;
+  }
+  const pts = [...new Set([0, len, showA, showB, ...marks.flat(), ...frases.flat()])].filter(x => x >= 0 && x <= len).sort((x, y) => x - y);
+  /* segmentos entre pontos de corte; termos contínuos viram um único <mark> (mesmo que a frase comece no meio da palavra) */
+  const segs = [];
+  for(let i = 0; i < pts.length - 1; i++){
+    const s0 = pts[i], e0 = pts[i + 1];
+    segs.push({
+      s0, e0, texto: esc(txt.slice(s0, e0)),
+      frase: frases.some(f => s0 >= f[0] && e0 <= f[1]),
+      marca: marks.some(m => s0 >= m[0] && e0 <= m[1]),
+      longe: longo && (e0 <= showA || s0 >= showB)
+    });
+  }
+  const comFrase = sg => sg.frase ? `<span class="frase">${sg.texto}</span>` : sg.texto;
+  const comLonge = (html, longe) => longe ? `<span class="longe">${html}</span>` : html;
+  let h = '', i = 0, fimEmitido = false;
+  while(i < segs.length){
+    const sg = segs[i];
+    if(sg.longe && sg.s0 >= showB && !fimEmitido){ h += '<span class="elipse" aria-hidden="true">… </span>'; fimEmitido = true; }
+    let j = i + 1, html;
+    if(sg.marca){
+      while(j < segs.length && segs[j].marca && segs[j].longe === sg.longe) j++;
+      html = `<mark>${segs.slice(i, j).map(comFrase).join('')}</mark>`;
+    } else html = comFrase(sg);
+    h += comLonge(html, sg.longe);
+    if(sg.longe && segs[j - 1].e0 === showA && showA > 0) h += '<span class="elipse" aria-hidden="true">… </span>';
+    i = j;
+  }
+  const nats = ORDEM_NAT.filter(n => g.trechos.some(t => t.natureza === n));
+  const pags = [...new Set(g.trechos.map(t => t.pagina))].filter(x => x != null).sort((x, y) => x - y);
+  const meta = g.trechos.some(t => t.metaQuantificada);
+  return `<article class="tr${longo ? ' longo' : ''}"><p class="tr-txt">${h}</p>${longo ? '<button type="button" class="tr-mais" aria-expanded="false">Ver parágrafo completo</button>' : ''}<div class="tr-meta">${nats.map(n => `<button type="button" class="selo" data-selo="${n}" aria-expanded="false">${NAT[n]}</button>`).join('')}${meta ? `<button type="button" class="selo attr" data-selo="metaQuantificada" aria-expanded="false">${ATR.rotulo}</button>` : ''}<span class="tr-pag">${pags.length > 1 ? 'pp.' : 'p.'} ${pags.join(', ')}</span></div></article>`;
+}
 
 function renderNatBar(c){
   const el = $('cand-natbar');
@@ -208,10 +274,15 @@ function renderCorpo(){
   const idsComTexto = temasComTexto(c);
   const ids = (atual.tema === 'todos' ? temas : [atual.tema]).filter(id => idsComTexto.includes(id));
   const totalTema = atual.tema === 'todos' ? c.contagens.total : c.contagens[atual.tema];
-  const mostrados = c.trechos.filter(x => (atual.tema === 'todos' ? temas : [atual.tema]).includes(x.tema)).length;
+  const doTema = c.trechos.filter(x => (atual.tema === 'todos' ? temas : [atual.tema]).includes(x.tema));
+  const mostrados = doTema.length;
+  /* passagens = parágrafos distintos entre os trechos mostrados (o mesmo parágrafo em dois temas conta uma vez) */
+  const passagens = new Set(doTema.map(t => t.origem === 'paragrafo' ? t.texto : 'f|' + t.id)).size;
   const un = n => n === 1 ? '1 trecho' : `${n} trechos`;
-  $('cand-status').textContent = atual.tema === 'todos' ? un(totalTema) : `${mostrados} de ${totalTema} trechos`;
-  body.innerHTML = ids.map(id => `<div class="group" role="group" aria-label="${TEMA[id].rotulo}"><h3 class="group-h">${TEMA[id].rotulo}</h3>${c.trechos.filter(x => x.tema === id).map(trHTML).join('')}</div>`).join('');
+  const sufixo = passagens < mostrados ? ` · ${passagens === 1 ? '1 passagem' : passagens + ' passagens'}` : '';
+  $('cand-status').textContent = (atual.tema === 'todos' ? un(totalTema) : `${mostrados} de ${totalTema} trechos`) + sufixo;
+  const aviso = ids.length ? '<p class="dlg-aviso">Transcrição literal do plano de governo: pode conter cortes de página ou de coluna. A frase classificada aparece com <span class="frase">fundo lilás</span>; sem fundo, não foi possível identificá-la no parágrafo.</p>' : '';
+  body.innerHTML = aviso + ids.map(id => `<div class="group" role="group" aria-label="${TEMA[id].rotulo}"><h3 class="group-h">${TEMA[id].rotulo}</h3>${agruparPassagens(c.trechos.filter(x => x.tema === id)).map(passagemHTML).join('')}</div>`).join('');
 }
 
 /* ---- endereço: #BR-05 abre a candidatura; #BR-05/saude já abre filtrada ---- */
@@ -286,7 +357,16 @@ function abrirPop(btn){
   if(top + h > innerHeight - 12) top = r.top - h - 8;
   pop.style.left = left + 'px'; pop.style.top = top + 'px';
 }
-body.addEventListener('click', e => { const b = e.target.closest('.selo'); if(b) abrirPop(b); });
+body.addEventListener('click', e => {
+  const m = e.target.closest('.tr-mais');
+  if(m){
+    const aberto = m.closest('.tr').classList.toggle('aberto');
+    m.setAttribute('aria-expanded', aberto);
+    m.textContent = aberto ? 'Recolher parágrafo' : 'Ver parágrafo completo';
+    fecharPop(); return;
+  }
+  const b = e.target.closest('.selo'); if(b) abrirPop(b);
+});
 body.addEventListener('scroll', fecharPop, {passive:true});
 window.addEventListener('resize', fecharPop);
 

@@ -35,6 +35,8 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
 - `--acc: #2FD4DA` (ciano) — fundo do hero e do rodapé, botões CTA padrão.
 - `--card` / `--card-2: #F5F2FB` — fundo dos boxes (cards de candidatura, cards de
   tema, itens do accordion).
+- `--frase: #E2DAF6` — fundo (marca-texto) da frase classificada dentro do parágrafo, no popup do candidato. Não
+  reaproveitar; o amarelo continua exclusivo do termo.
 - `--card-hover: #EDE8F9` — fundo do card do accordion da intro quando o cursor está sobre o
   cabeçalho (só em dispositivos com hover).
 - `--hero-edge: #0B5663` — acento secundário pontual (hover de link no rodapé).
@@ -63,6 +65,16 @@ genuinamente circulares. Botões em uppercase.
 - **Destaque de termo nos trechos**: cada trecho em `dados.js` tem `inicio`/`fim`
   (índices de caractere). Nunca re-buscar a palavra por regex/string match — os
   índices já vêm validados da planilha-fonte.
+- **Trechos no popup do candidato** (`agruparPassagens`/`passagemHTML` em `app.js`): trechos do mesmo tema **e da
+  mesma natureza** que dividem o mesmo parágrafo viram um cartão só (todos os termos destacados; agrupar por
+  natureza evita misturar frases de naturezas diferentes sob os mesmos selos). O cabeçalho diz
+  "N trechos · M passagens" quando M < N (passagem = parágrafo distinto). Exibição em três níveis: parágrafo
+  inteiro em cor normal, **frase classificada com fundo lilás** (`.frase`, token `--frase`), termo em amarelo
+  (`<mark>`). Cartão **sem fundo** = a frase classificada não é localizável (ou o trecho é só o fragmento
+  registrado); nunca afirmar qual frase foi classificada quando não se sabe. Parágrafos acima de 1.200
+  caracteres abrem recolhidos, só com o entorno da frase ("Ver parágrafo completo"); o texto escondido usa
+  `display:none`, então a busca do navegador não o encontra até expandir. Uma linha no topo explica o fundo
+  lilás e avisa que a transcrição é literal do PDF (redação provisória, a confirmar com a equipe).
 - **Popups**: dois `<dialog>` nativos. `#cand` (candidato) é linkável por hash na URL. `#doc`
   (Metodologia/Nota técnica) é aberto por links `<a href="metodologia/" data-doc="metodologia">`: clique
   simples abre o popup com o texto buscado da página; Cmd/Ctrl+clique, sem JavaScript ou `fetch`
