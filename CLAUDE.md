@@ -27,18 +27,24 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
 
 ## Identidade visual (tokens em `:root`, no topo do `styles.css`)
 
-- `--brand-ink: #15074C` (indigo) — cor de marca constante. Uso exclusivo: texto/ícone
-  escuro sobre fundo de acento (hero, rodapé, botões preenchidos, estados
-  ativo/hover). **Nunca** usar como fundo de seção.
+- `--brand-ink: #17064F` (indigo) — cor de marca constante. Uso exclusivo: texto/ícone
+  escuro sobre fundo de acento (anel decorativo do hero, estados ativo/hover de botões e
+  links, contorno de foco). **Nunca** usar como fundo de seção.
+- `--title: #15074C` (indigo, tom próprio — não é `--brand-ink`) — cor de títulos (h1–h4,
+  nomes de candidatura, títulos de accordion/popup/tema) e de ícone persistente (logo,
+  hambúrguer, "voltar" nas páginas de documento) sempre em Poppins **bold**. `--card`,
+  `--card-2` e `--card-hover` são tingidos a partir dele via `color-mix()` (4%/4%/8%), e os
+  fios/molduras abaixo (`--rule`, `--rule-strong`, `--line-control`, `--frame`, `--track`)
+  também partem da sua decomposição em rgb (`21,7,76`) — nunca de `--brand-ink`.
 - `--ink: #443970` — texto de corpo geral (nomes, texto de trecho, diálogos).
 - `--mute: #655A87` — texto secundário/descrições.
 - `--acc: #2FD4DA` (ciano) — fundo do hero e do rodapé, botões CTA padrão.
-- `--card` / `--card-2: #F5F2FB` — fundo dos boxes (cards de candidatura, cards de
-  tema, itens do accordion).
+- `--card` / `--card-2` — fundo dos boxes (cards de candidatura, cards de tema, itens do
+  accordion); `--card-hover` — fundo do card do accordion da intro quando o cursor está
+  sobre o cabeçalho (só em dispositivos com hover). Os três são tingidos de `--title`, não
+  hex fixo (ver acima).
 - `--frase: #E2DAF6` — fundo (marca-texto) da frase classificada dentro do parágrafo, no popup do candidato. Não
   reaproveitar; o amarelo continua exclusivo do termo.
-- `--card-hover: #EDE8F9` — fundo do card do accordion da intro quando o cursor está sobre o
-  cabeçalho (só em dispositivos com hover).
 - `--hero-edge: #0B5663` — acento secundário pontual (hover de link no rodapé).
 - `--violet: #8F76F1` — acento secundário de marca (roxo). Uso: botão "NOTA TÉCNICA",
   `.btn.violet` ("Ver metodologia"), link ativo do drawer mobile, ícone +/− do
@@ -59,9 +65,13 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   sobre branco e sobre `--card` (contraste de componente, WCAG 1.4.11); a 40% dava 2,64:1. `--frame` — borda suave dos cards de candidato. Não criar novas
   opacidades soltas de `rgba(21,7,76,...)` em bordas: usar um desses tokens.
 
-Tipografia: Poppins pra tudo, corpo em `font-weight:500` por padrão. Border-radius
-padronizado em **4px** em todo botão/box — nada de pílula (`999px`), exceto elementos
-genuinamente circulares. Botões em uppercase.
+Tipografia: Poppins pra tudo. Corpo em `font-weight:500` por padrão; títulos (a lista de
+seletores do `--title` acima) em **bold (700)**, pro peso gráfico. Border-radius
+padronizado em **24px** em cards, diálogos e caixas (`.card`, `.tema`, `.acc-item`, `.dlg`,
+`.matriz-item`, `.pop`); botões e controles pequenos (`.btn`, `.nav-cta`, `.sigla`,
+`.selo`, `.selo-tag`, `.filters button`, `.share a/button`) em **pílula** (`999px`);
+círculo só em elementos genuinamente circulares (avatar, `.scroll-cue`, `.foot-top i`).
+Botões em uppercase.
 
 ## Componentes/padrões importantes
 
