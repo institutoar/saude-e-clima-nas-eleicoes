@@ -24,9 +24,6 @@ const NUMS = [
 
 const numsEl = $('nums');
 numsEl.innerHTML = NUMS.map(x => `<div class="num"><strong data-n="${x.n}" data-suf="${x.suf}">${pt(x.n)}${x.suf}</strong><p>${x.t}</p></div>`).join('');
-/* par de números da decisão de 26/09: os trechos do registro dividem parágrafos, então há menos passagens que trechos */
-const OFI = D.oficial;
-$('nums-base').textContent = `Base: ${pt(OFI.trechos)} trechos em ${pt(OFI.paragrafo.passagens)} passagens distintas, de ${OFI.arquivos} arquivos PDF, dos planos de ${OFI.candidaturas} candidaturas.`;
 /* entrada única: os números sobem quando a seção aparece na tela */
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
   const els = [...numsEl.querySelectorAll('strong')];

@@ -125,9 +125,9 @@ ou ignora. Vale para o cartão e o popup dos 7 planos sem menção.
   e no MA, e PRTB no MA); as datas das três primeiras são da entrega anterior e a de MA-07 não tem data.
   Confirmar com a equipe antes de mudar.
 - Os 6 números de "Achados principais" (`#numeros`) são **texto fixo no JS** (array
-  `NUMS` em `app.js`), vindos da Correção da Nota (seção 4); só a nota de base (`#nums-base`: trechos,
-  passagens, arquivos, candidaturas) é lida de `dados.js`. Se algum dia fizer sentido automatizar os
-  números, mapear cada um pro campo correspondente em `oficial.*` (arredondar com `Math.round`).
+  `NUMS` em `app.js`), vindos da Correção da Nota (seção 4), sem linha de base e sem nota abaixo (removidas de
+  propósito: repetiam o que as frases já dizem). Se algum dia fizer sentido automatizar os números, mapear
+  cada um pro campo correspondente em `oficial.*` (arredondar com `Math.round`).
 
 ## Convenções de trabalho
 
