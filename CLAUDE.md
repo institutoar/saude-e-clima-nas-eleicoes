@@ -49,9 +49,14 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   uma escala de opacidade do brand-ink, não essas cores.
 - `#FFC20E` (amarelo institucional) — uso exclusivo: `<mark>` da palavra do
   dicionário destacada no texto do trecho.
-- `--rule` / `--rule-strong` — fios/divisórias, 1px sólido.
-- `--line-control` — contorno de controles e tags pequenos (botões, pills, siglas, popup),
-  1px sólido. `--frame` — borda suave de 3px dos cards de candidato. Não criar novas
+- `--stroke: 2px` — **espessura única de todo fio, contorno e ícone de traço** do site (bordas, divisórias, molduras,
+  contorno de foco, SVGs com `stroke-width`). Nunca escrever largura literal (`1px`, `3px`) em `border`/`outline`/
+  `stroke-width`: usar `var(--stroke)`. Os SVGs inline mantêm `stroke-width="2"` por fallback e a regra
+  `svg[stroke-width]` do CSS vence o atributo. Exceção: separadores de barra (`.nat-bar-seg`) seguem o mesmo valor.
+- `--rule` (12%) / `--rule-strong` (20%) — fios/divisórias decorativos; `--frame` (10%) — moldura dos cards de candidato.
+  Opacidades calibradas para 2px (a 1px eram 15/25/8%).
+- `--line-control` (48%) — contorno de controles e tags pequenos (botões, pills, siglas, popup). Fica em ≥ 3:1
+  sobre branco e sobre `--card` (contraste de componente, WCAG 1.4.11); a 40% dava 2,64:1. `--frame` — borda suave dos cards de candidato. Não criar novas
   opacidades soltas de `rgba(21,7,76,...)` em bordas: usar um desses tokens.
 
 Tipografia: Poppins pra tudo, corpo em `font-weight:500` por padrão. Border-radius
