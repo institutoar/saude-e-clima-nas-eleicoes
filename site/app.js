@@ -52,7 +52,7 @@ const doGrupo = id => CANDS.filter(c => c.disputa === id).sort((a, b) => a.titul
 const CHIPS = [{id:'all', rotulo:'Todas', n:CANDS.length}, ...DISP.map(d => ({id:d.id, rotulo:d.rotulo, n:doGrupo(d.id).length}))];
 filters.setAttribute('role', 'group');
 filters.setAttribute('aria-label', 'Filtrar por disputa');
-filters.innerHTML = '<div class="filters-row">' + CHIPS.map((c, i) => `<button type="button" data-k="${c.id}" aria-pressed="${c.id === 'all'}">${c.rotulo}<span class="n">${c.n}</span></button>`).join('') + '</div><span class="status" id="live" aria-live="polite"></span>';
+filters.innerHTML = '<div class="filters-row">' + CHIPS.map((c, i) => `<button type="button" data-k="${c.id}" aria-pressed="${c.id === 'all'}">${c.rotulo}<span class="n">${c.n}</span></button>`).join('') + '</div><span class="sr" id="live" aria-live="polite"></span>';
 
 /* degradê na borda direita enquanto ainda há filtros fora da tela (linha rolável) */
 const REDUZIDO = matchMedia('(prefers-reduced-motion: reduce)');

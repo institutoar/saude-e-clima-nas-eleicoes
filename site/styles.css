@@ -143,14 +143,13 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 .share-msg{position:absolute;top:100%;left:0;margin-top:12px;font-size:13px;line-height:1.4;color:rgba(21,7,76,.72)}
 
 /* ---------- ferramenta (largura total) ---------- */
-.filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:32px;padding-top:40px;border-top:var(--stroke) solid var(--rule-strong)}
+.filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:8px}   /* 56 (row-gap) + 8 = 64px do lead aos filtros, igual ao dos filtros ao título do grupo */
 .filters-row{display:flex;flex-wrap:wrap;gap:14px}
 .filters button,.dlg-filters button{background:transparent;border:var(--stroke) solid var(--line-control);border-radius:4px;padding:12px 26px;font-size:15px;font-weight:700;text-transform:uppercase}
 .filters button{padding:12px 24px;font-size:12px;letter-spacing:.08em}
 .filters button:hover,.dlg-filters button:hover{border-color:var(--ink)}
 .filters button[aria-pressed="true"],.dlg-filters button[aria-pressed="true"]{background:var(--ink);color:var(--dark);border-color:var(--ink)}
 .filters button .n,.dlg-filters button .n{margin-left:10px;font-weight:400;opacity:.7;font-variant-numeric:tabular-nums}
-.filters .status{margin-left:auto;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
 @keyframes swap{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
 .groups.swap,.dlg-body.swap{animation:swap .28s ease-out}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
@@ -329,7 +328,6 @@ svg[stroke-width]{stroke-width:var(--stroke)}
   .filters-row{flex-wrap:nowrap;gap:10px;width:100%;overflow-x:auto;scrollbar-width:none}
   .filters-row::-webkit-scrollbar{display:none}
   .filters-row button{flex:none}
-  .filters .status{margin-left:0;width:100%}
   /* card compacto (celular): foto ao lado do nome, dados embaixo; todos com a mesma altura */
   .card{height:210px;padding:20px;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:16px}
   .card .avatar{grid-area:1 / 1;align-self:center;width:56px;height:56px;font-size:18px}
