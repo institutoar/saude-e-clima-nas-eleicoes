@@ -61,7 +61,7 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 /* ---------- header fixo ---------- */
 @property --hbg{syntax:'<color>';inherits:true;initial-value:#005966}
 .hdr{position:fixed;inset:0 0 auto 0;z-index:40;pointer-events:none;height:calc(80px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);--hbg:var(--acc);transition:--hbg .35s ease}
-.hdr::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,var(--hbg) 0,color-mix(in srgb,var(--hbg) 90%,transparent) 55%,transparent 100%)}
+.hdr::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,var(--hbg) 0,color-mix(in srgb,var(--hbg) 97%,transparent) 65%,transparent 100%)}
 .nav div{align-items:center}
 .nav a[aria-current="true"]{color:var(--ink);text-decoration:underline;text-decoration-color:var(--acc);text-decoration-thickness:2px;text-underline-offset:8px}
 .hdr .container{height:100%}
@@ -70,9 +70,11 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 .nav{position:relative;display:flex;justify-content:space-between;align-items:center;padding-block:32px;font-size:15px;font-weight:500}
 .nav b{font-family:var(--head);font-weight:700;font-size:17px}
 .brand-mark{display:flex;align-items:center}
-.brand-mark svg{height:30px;width:auto;display:block}
+.brand-mark svg{height:34px;width:auto;display:block}
 .ia-logo-fill{fill:var(--ink);transition:fill .2s ease}
 .hdr.on-acc .ia-logo-fill{fill:var(--title)}
+.ia-logo-symbol{fill:var(--acc);transition:fill .2s ease}
+.hdr.on-acc .ia-logo-symbol{fill:var(--title)}
 .nav div{display:flex;gap:40px;color:var(--mute)}
 .nav a:hover{color:var(--ink)}
 .nav-cta{display:inline-flex;align-items:center;height:36px;padding:0 18px;border:0;border-radius:999px;background:var(--violet);color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;transition:background .2s ease}
@@ -268,6 +270,7 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 .foot-logos{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
 .foot-logo-mark svg{display:block;height:64px;width:auto}
 .foot-logo-mark .ia-logo-fill{fill:var(--title)}
+.foot-logo-mark .ia-logo-symbol{fill:var(--title)}
 .foot-info h3{font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
 .foot-info{margin-top:80px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter)}
 .foot-info p{color:rgba(21,7,76,.72);font-size:15.5px;line-height:1.55}
