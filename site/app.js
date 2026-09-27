@@ -136,13 +136,13 @@ const fadeFil = fadeRolavel(fil);
 const TEMA = Object.fromEntries(D.temas.map(t => [t.id, t]));
 const NAT = Object.fromEntries(D.naturezas.map(n => [n.id, n.rotulo]));
 const ATR = D.atributos[0];   // meta quantificada
-/* provisório: definições derivadas do documento do jornalista; validar com a pesquisadora */
+/* definições da Nota Metodológica v5.0 (§5): manter o texto igual ao da Nota */
 const SELOS = {
-  proposta:'O plano anuncia o que fará, no futuro, com o tema como um dos objetos da ação.',
-  diagnostico:'Descreve uma situação, ou relata o que o governo atual já fez ou está fazendo.',
+  proposta:'O plano anuncia o que fará no futuro, e o tema é um dos objetos da ação.',
+  diagnostico:'O plano descreve uma situação, relata o que o governo atual já fez ou está fazendo — um programa em andamento, uma lei já sancionada — ou enuncia um princípio ou condição sem anunciar ação. É o relato do próprio plano, mesmo quando soa como conquista.',
   mencao:'O termo aparece, mas o trecho não afirma nada sobre ele.',
-  contrario:'Nega ou contesta a mudança do clima ou a ação climática.',
-  metaQuantificada:'Trecho que traz uma meta numérica com prazo definido.'
+  contrario:'O trecho nega ou contesta a mudança do clima ou a ação climática. A busca procurou linguagem explícita desse tipo — como “farsa climática” ou a saída do Acordo de Paris — nos 37 arquivos. Nenhum trecho recebeu esta natureza, e esse zero é reportado como resultado da busca.',
+  metaQuantificada:'O trecho fixa um resultado a alcançar, expresso em número, percentual ou prazo verificável, inclusive zero, e esse resultado é o do tema pelo qual o trecho está registrado.'
 };
 const selosEl = $('acc-selos');
 if(selosEl) selosEl.innerHTML = [...D.naturezas.map(n => ({k:n.id, r:n.rotulo})), {k:'contrario', r:'Contrário'}]

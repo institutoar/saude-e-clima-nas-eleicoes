@@ -49,10 +49,12 @@ cd dados
 python3 tratar_dados.py
 ```
 
-Lê a planilha-fonte mais recente em `dados/entrada/`, escreve `site/dados.js` e um
-relatório de verificação. Em seguida, rode `python3 dados/fotos/aplicar_fotos.py` pra
-reaplicar as fotos dos candidatos — esse passo reescreve `dados.js` por completo, então
-o campo `foto` de cada candidatura se perde se ele não rodar depois.
+Lê `dados/entrada/base_de_dados.xlsx` (registro, contagens e números de manchete) e
+`dados/dicionario.xlsx` (lista de termos sem ocorrência), casa as candidaturas com
+`dados/fotos/candidatos.json`, escreve `site/dados.js` e um relatório de verificação
+(`dados/verificacao_dados.txt`). O script para com erro se um nome não casar ou se uma natureza for
+desconhecida. O campo `foto` é preenchido a partir de `site/fotos/`;
+`dados/fotos/baixar_fotos.py` e `aplicar_fotos.py` só são necessários para baixar fotos novas do TSE.
 
 ## Contato
 

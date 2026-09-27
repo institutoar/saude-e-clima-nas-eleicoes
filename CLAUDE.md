@@ -81,22 +81,41 @@ genuinamente circulares. Botões em uppercase.
 
 ## Dados
 
-827 trechos, 34 candidaturas. IDs seguem `{BR|SP|RS|MA}-{ordem:02d}`. Cada trecho:
-`{tema, natureza, pagina, texto, inicio, fim}`. O dicionário de recuperação completo
-está em `dados/dicionario.xlsx`.
+827 trechos, 34 candidaturas (base de 26/09/2026, corte do corpus 22/09; dicionário v3.3). IDs seguem
+`{BR|SP|RS|MA}-{ordem:02d}` e vêm de `dados/fotos/candidatos.json` (lista-mestra que também amarra fotos e
+links `#BR-05`); a base não traz mais a ordem de registro. Cada trecho:
+`{id, tema, natureza, pagina, termo, texto, inicio, fim, fraseInicio, fraseFim, origem, metaQuantificada}`.
+- `texto` é o **parágrafo** do plano (não mais uma janela de 260 caracteres); `inicio`/`fim` são o termo do
+  dicionário dentro dele.
+- `fraseInicio`/`fraseFim`: a frase que foi de fato classificada, dentro do parágrafo (para a exibição em
+  três níveis). Calculada por `tratar_dados.py`; é `null` quando a frase não é localizável (64 casos) e nos
+  36 trechos com `origem: 'fragmento'` (o texto exibido é o fragmento registrado, não o parágrafo).
+- `metaQuantificada`: texto da meta, ou `null`. Vale em 6 trechos.
+- Naturezas: `proposta` (Compromisso), `diagnostico` (Relato), `mencao` (Citação); "Contrário" existe com
+  valor **0** — é resultado de pesquisa, não ausência de dado.
+O dicionário de recuperação está em `dados/dicionario.xlsx` (v3.3) e a base em
+`dados/entrada/base_de_dados.xlsx`. `oficial.*` do `dados.js` vem da aba `resumo_geral` (fonte única dos números).
+
+**Redação de ausência** (regra da base): "não localizamos menção". Nunca afirmar o que a candidatura pensa
+ou ignora. Vale para o cartão e o popup dos 7 planos sem menção.
+
+**Definições dos selos** (`SELOS` em `app.js`) e o texto de `site/metodologia/` são a Nota Metodológica v5.0
+(`documentos/Nota_Metodologica.docx`): ao mudar uma, mude a outra.
 
 ### Pendências conhecidas (não resolver sozinho sem confirmar — perguntar primeiro)
 
-- Aba `graficos` da planilha-fonte está desatualizada em relação ao restante da base.
-  Não afeta o site hoje porque nenhum gráfico daquela aba foi implementado.
-- Natureza "Contrário" existe na legenda de classificação mas nenhum trecho real está
-  marcado assim ainda.
-- `metaQuantificada` só existe como estatística agregada, nunca foi marcado por trecho
-  individual.
+- Aba `graficos` da base de 26/09 (agora atualizada, com os números novos) descreve 7 gráficos de
+  barras horizontais (G01–G07) e 3 tabelas (T01–T03) como "figuras do site", e diz que "verde e vermelho não
+  são usados na exibição de dados". **Nenhum deles está implementado** e o site usa verde em Adaptação
+  (`--t-ada`). Perguntar à equipe se os gráficos entram e se a regra de cores vale para os temas.
+- Situação de registro por candidatura: a base de 26/09 não traz. `INDEFERIDAS` em
+  `dados/tratar_dados.py` lista à mão as 4 candidaturas indeferidas com recurso pendente (PCO no RS, em SP
+  e no MA, e PRTB no MA); as datas das três primeiras são da entrega anterior e a de MA-07 não tem data.
+  Confirmar com a equipe antes de mudar.
 - Os 6 números de "Achados principais" (`#numeros`) são **texto fixo no JS** (array
-  `NUMS` em `app.js`), não calculados a partir de `dados.js`. Se algum dia fizer
-  sentido automatizar isso, mapear cada número pro campo correspondente em
-  `oficial.*` primeiro.
+  `NUMS` em `app.js`), vindos da Correção da Nota (seção 4); só a nota de base (`#nums-base`: trechos,
+  passagens, arquivos, candidaturas) é lida de `dados.js`. Se algum dia fizer sentido automatizar os
+  números, mapear cada um pro campo correspondente em `oficial.*` (arredondar com `Math.round`).
 
 ## Convenções de trabalho
 
