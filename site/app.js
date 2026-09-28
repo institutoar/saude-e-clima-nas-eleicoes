@@ -8,10 +8,6 @@ const $ = id => document.getElementById(id);
 const pt = n => n.toLocaleString('pt-BR');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-/* números que aparecem em texto corrido */
-const FILL = {dataCorte:D.dataCorte};
-document.querySelectorAll('[data-fill]').forEach(el => { el.textContent = FILL[el.dataset.fill]; });
-
 /* ---------- números ---------- */
 const NUMS = [
   {n:0, suf:'', t:'dos 815 trechos contesta a mudança do clima ou a ação climática'},
