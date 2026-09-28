@@ -140,8 +140,9 @@ O dicionário de recuperação está em `dados/dicionario.xlsx` (v3.3) e a base 
 **Redação de ausência** (regra da base): "não localizamos menção". Nunca afirmar o que a candidatura pensa
 ou ignora. Vale para o cartão e o popup dos 7 planos sem menção.
 
-**Definições dos selos** (`SELOS` em `app.js`) e o texto de `site/metodologia/` são a Nota Metodológica v5.0
-(`documentos/Nota_Metodologica.docx`): ao mudar uma, mude a outra.
+**Definições dos selos** (`SELOS` em `app.js`) e o texto de `site/metodologia/` são a Nota Metodológica
+(`documentos/Nota_Metodologica.docx`, versão de 28/09/2026 — o documento não usa mais número de versão, só
+data): ao mudar uma, mude a outra.
 
 ### Pendências conhecidas (não resolver sozinho sem confirmar — perguntar primeiro)
 
