@@ -46,8 +46,6 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   accordion); `--card-hover` — fundo do card do accordion da intro quando o cursor está
   sobre o cabeçalho (só em dispositivos com hover). Os três são tingidos de `--title`, não
   hex fixo (ver acima).
-- `--frase: #E2DAF6` — fundo (marca-texto) da frase classificada dentro do parágrafo, no popup do candidato. Não
-  reaproveitar; o amarelo continua exclusivo do termo.
 - `--hero-edge: #0B5663` — acento secundário pontual (hover de link no rodapé).
 - `--violet: #8F76F1` — acento secundário de marca (roxo). Uso: botão "NOTA TÉCNICA",
   `.btn.violet` ("Ver metodologia"), link ativo do drawer mobile, ícone +/− do
@@ -89,13 +87,15 @@ Botões em uppercase.
   natureza). `agruparPassagens` é chamado por seção de tema, então a chave de agrupamento não inclui o tema; se
   uma mesma passagem atravessa dois temas (19 casos), ela aparece uma vez em cada seção — o contador abaixo já
   soma isso certo. O cabeçalho diz "N trechos · M passagens" quando M < N (passagem contada por texto só, sem
-  tema/natureza — bate com o 815/660 oficial). Exibição em três níveis: parágrafo inteiro em cor normal,
-  **frase classificada com fundo lilás** (`.frase`, token `--frase`), termo em amarelo (`<mark>`). Cartão **sem
-  fundo** = a frase classificada não é localizável, ou o trecho é fragmento/tabela (`origem`); nunca afirmar
-  qual frase foi classificada quando não se sabe. Parágrafos acima de 1.200
-  caracteres abrem recolhidos, só com o entorno da frase ("Ver parágrafo completo"); o texto escondido usa
-  `display:none`, então a busca do navegador não o encontra até expandir. Uma linha no topo explica o fundo
-  lilás e avisa que a transcrição é literal do PDF (redação provisória, a confirmar com a equipe).
+  tema/natureza — bate com o 815/660 oficial). Exibição em dois níveis visuais: parágrafo inteiro em cor
+  normal, termo em amarelo (`<mark>`). A frase classificada (`fraseInicio`/`fraseFim`) não tem mais destaque
+  visual próprio — não existe mais token/classe `--frase`/`.frase` — mas a posição continua sendo calculada e
+  usada por baixo pra decidir o recorte do parágrafo longo (ver abaixo), então não remover esses campos do
+  dado nem a lógica que os lê em `passagemHTML`. Parágrafos acima de 1.200 caracteres abrem recolhidos, só com
+  o entorno da frase classificada (ou do termo, se a frase não for conhecida) — botão "Ver parágrafo
+  completo"; o texto escondido usa `display:none`, então a busca do navegador não o encontra até expandir.
+  Uma linha no topo (`dlg-aviso`) avisa que a transcrição é literal e pode vir cortada ou fora de ordem por
+  limitação de extração, e que o amarelo vem de correlação por leitura com IA — redação definitiva.
 - **Popups**: dois `<dialog>` nativos. `#cand` (candidato) é linkável por hash na URL. `#doc`
   (Metodologia/Nota técnica) é aberto por links `<a href="metodologia/" data-doc="metodologia">`: clique
   simples abre o popup com o texto buscado da página; Cmd/Ctrl+clique, sem JavaScript ou `fetch`
@@ -124,11 +124,12 @@ mais a ordem de registro. Cada trecho:
   dicionário dentro dele.
 - `origem`: `'paragrafo'` (texto reconstruído, 780 trechos), `'fragmento'` (não reconstruído, 35 trechos) ou
   `'tabela'` (3 trechos — SP-096, SP-097, SP-114 — vieram de uma tabela do plano original; a coluna `TABELA`
-  da base marca quais são. `app.js`/`passagemHTML` nunca mostra frase classificada pra esses e acrescenta o
-  aviso "trecho extraído de uma tabela do plano..." abaixo do texto).
-- `fraseInicio`/`fraseFim`: a frase que foi de fato classificada, dentro do parágrafo (para a exibição em
-  três níveis). Calculada por `tratar_dados.py`; é `null` quando a frase não é localizável (79 casos, entre os
-  reconstruídos), nos 35 trechos com `origem: 'fragmento'` (o texto exibido é o fragmento registrado, não o
+  da base marca quais são. `app.js`/`passagemHTML` acrescenta o aviso "trecho extraído de uma tabela do
+  plano..." abaixo do texto desses).
+- `fraseInicio`/`fraseFim`: a frase que foi de fato classificada, dentro do parágrafo. Sem destaque visual
+  próprio (ver "Trechos no popup do candidato" acima), mas usada por `passagemHTML` pra decidir o recorte do
+  parágrafo longo. Calculada por `tratar_dados.py`; é `null` quando a frase não é localizável (79 casos, entre
+  os reconstruídos), nos 35 trechos com `origem: 'fragmento'` (o texto exibido é o fragmento registrado, não o
   parágrafo) e nos 3 trechos de tabela (nunca tenta localizar, mesmo quando reconstruído).
 - `metaQuantificada`: texto da meta, ou `null`. Vale em 6 trechos, em 4 candidaturas.
 - Naturezas: `proposta` (Compromisso), `diagnostico` (Relato), `mencao` (Citação); "Contrário" existe com

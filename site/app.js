@@ -213,7 +213,7 @@ function passagemHTML(g){
       longe: longo && (e0 <= showA || s0 >= showB)
     });
   }
-  const comFrase = sg => sg.frase ? `<span class="frase">${sg.texto}</span>` : sg.texto;
+  const comFrase = sg => sg.texto;   /* a posição da frase (sg.frase) ainda decide o recorte do parágrafo longo acima; só não tem mais destaque visual próprio */
   const comLonge = (html, longe) => longe ? `<span class="longe">${html}</span>` : html;
   let h = '', i = 0, fimEmitido = false;
   while(i < segs.length){
@@ -287,7 +287,7 @@ function renderCorpo(){
   const un = n => n === 1 ? '1 trecho' : `${n} trechos`;
   const sufixo = passagens < mostrados ? ` · ${passagens === 1 ? '1 passagem' : passagens + ' passagens'}` : '';
   $('cand-status').textContent = (atual.tema === 'todos' ? un(totalTema) : `${mostrados} de ${totalTema} trechos`) + sufixo;
-  const aviso = ids.length ? '<p class="dlg-aviso">Transcrição literal do plano de governo: pode conter cortes de página ou de coluna. A frase classificada aparece com <span class="frase">fundo lilás</span>; sem fundo, não foi possível identificá-la no parágrafo.</p>' : '';
+  const aviso = ids.length ? '<p class="dlg-aviso">Transcrição literal de trechos do plano de governo do candidato. Por limitações na extração do texto original (como diagramação em colunas), alguns trechos podem aparecer cortados ou fora da ordem de leitura. Palavras em amarelo foram correlacionadas aos temas de análise por meio de leitura com auxílio de IA.</p>' : '';
   body.innerHTML = aviso + ids.map(id => `<div class="group" role="group" aria-label="${TEMA[id].rotulo}"><h3 class="group-h">${TEMA[id].rotulo}</h3>${agruparPassagens(c.trechos.filter(x => x.tema === id)).map(passagemHTML).join('')}</div>`).join('');
 }
 

@@ -10,7 +10,6 @@
   --card:color-mix(in srgb,var(--title) 4%,#fff);   /* tingido do índigo dos títulos */
   --card-2:color-mix(in srgb,var(--title) 4%,#fff);
   --card-hover:color-mix(in srgb,var(--title) 8%,#fff);
-  --frase:#E2DAF6;
   --ink:#453872;   /* índigo mais claro — corpo/leads */
   --mute:#655A87;   /* índigo mais claro — texto secundário */
   --acc:#2FD4DA;   /* ciano de volta no hero/rodapé/foco */
@@ -465,8 +464,6 @@ html:has(dialog[open]){overflow:hidden}
 .tr{padding:20px 0}
 .tr + .tr{border-top:var(--stroke) solid var(--rule)}
 .tr-txt{font-size:17px;line-height:1.6;color:var(--ink)}
-.tr-txt mark .frase{background:transparent;padding:0}
-.frase{background:var(--frase);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 0}
 .tr:not(.aberto) .longe{display:none}
 .tr.aberto .elipse{display:none}
 .tr-mais{margin-top:6px;padding:10px 0;min-height:44px;border:0;background:none;font-size:14px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
