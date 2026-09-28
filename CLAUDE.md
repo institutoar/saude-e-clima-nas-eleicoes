@@ -20,6 +20,9 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
   (`fetch`), então não existe cópia do texto em `app.js` nem em `index.html`. Editar o texto = editar
   o `<article id="doc-conteudo">` da página correspondente. Não carregam `app.js`.
 - `site/icons/` — favicons (32px, 16px) e apple-touch-icon (180px), referenciados pelas três páginas.
+- `site/og-image.jpg` (1200×630) — imagem de preview (`og:image`) usada pelas três páginas, referenciada por
+  URL absoluta (`https://saudeeclimanaseleicoes.institutoar.org.br/og-image.jpg`) porque crawlers de rede
+  social não resolvem caminho relativo.
 - `dados/`, `documentos/` — material de pesquisa/planilhas-fonte originais. Não fazem
   parte do site publicado. Guardam só a versão vigente, com nomes estáveis (sem versão no
   nome; versões anteriores ficam no histórico do git). `documentos/interno/` está no
