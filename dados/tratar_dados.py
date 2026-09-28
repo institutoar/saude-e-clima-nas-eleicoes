@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
 tratar_dados.py — gera dados.js a partir da "Base de dados" entregue pela pesquisadora
-(versão final de 26/09/2026; corpus fechado em 22/09/2026, dicionário v3.3).
+(versão final de 28/09/2026; corpus fechado em 22/09/2026, dicionário v3.3).
 
-O registro (aba `registro_completo`) tem os 827 trechos, cada um já como PARÁGRAFO do plano
-(coluna `Trecho`), com as posições do termo (`Início`/`Fim`) recalculadas para esse texto.
+O registro (aba `registro_completo`) tem 827 linhas, das quais 12 foram desconsideradas pela
+revisão manual da coordenação em 28/09 (coluna `Excluir` marcada com X) — os 815 restantes são
+o registro do site. Cada trecho já é o PARÁGRAFO do plano (coluna `Trecho`), com as posições do
+termo (`Início`/`Fim`) recalculadas para esse texto. Três trechos (coluna `TABELA` preenchida)
+vêm de uma tabela do plano original: entram no registro, mas sem frase classificada — a
+transcrição não preserva linha/coluna, então não há frase corrida pra destacar.
 As contagens por candidatura/tema vêm da aba `candidaturas` (27 com trechos) e da aba
 `ausencias` (as 7 sem nenhuma menção); os números de manchete, da aba `resumo_geral`.
 
@@ -92,7 +96,7 @@ oficial = {
     'candidaturas': resumo['Candidaturas'],
     'arquivos': resumo['Arquivos PDF'],
     'paginas': resumo['Páginas por candidatura'],
-    'trechos': resumo['Trechos registrados'],
+    'trechos': resumo['Trechos considerados'],
     'planosComOcorrencia': resumo['Planos com ao menos um tema'],
     'planosSemOcorrencia': resumo['Planos sem nenhum tema'],
     'natureza': {
@@ -161,7 +165,7 @@ if faltam_mestra:
     raise SystemExit(f'candidaturas da lista-mestra que não aparecem na planilha: {faltam_mestra}')
 lista = sorted(cands.values(), key=lambda c: (['pres', 'sp', 'rs', 'ma'].index(c['disputa']), c['ordem']))
 
-# ---------- registro_completo: os 827 trechos ----------
+# ---------- registro_completo: os 815 trechos (827 registrados, 12 desconsiderados) ----------
 def localizar_frase(par, frag):
     """Posição do fragmento registrado dentro do parágrafo: (inicio, fim, 'exata'|'espacos') ou None."""
     frag = (frag or '').strip()
@@ -179,10 +183,16 @@ def localizar_frase(par, frag):
         return idx[k], idx[k + len(alvo) - 1] + 1, 'espacos'
     return None
 
-nao_casaram, sem_tema_valido = [], 0
+nao_casaram, sem_tema_valido, excluidos = [], 0, []
 frase = C.Counter(); frase_falhou = []
 passagens = set(); ids_vistos = C.Counter()
+tabela_ids = []
+origem_conta = C.Counter()   # reconstruído/fragmento independente da marca de tabela (pra bater com o resumo_geral)
 for r in linhas('registro_completo'):
+    excluir = norm(r['Excluir (marcar com X caso a menção precise ser desconsiderada)']).lower()
+    if excluir in ('x', 'sim'):
+        excluidos.append(r['ID (site)'])
+        continue
     if r['Tema'] not in TEMA_TELA:
         sem_tema_valido += 1
         continue
@@ -195,11 +205,18 @@ for r in linhas('registro_completo'):
         raise SystemExit(f"natureza desconhecida em {r['ID (site)']}: {r['Natureza']!r}")
     par = (r['Trecho'] or '').strip()
     reconstruido = r['Origem do trecho'] == 'parágrafo reconstruído'
-    fr = localizar_frase(par, r['Trecho como estava registrado (fragmento)']) if reconstruido else None
+    tabela = bool(norm(r['TABELA']))
+    origem_conta['reconstruido' if reconstruido else 'fragmento'] += 1
+    if tabela:
+        tabela_ids.append(r['ID (site)'])
+    # trecho de tabela: entra no registro e conta pra reconstruído/passagem como qualquer outro,
+    # mas nunca mostra frase classificada — a transcrição não tem frase corrida pra destacar.
+    fr = localizar_frase(par, r['Trecho como estava registrado (fragmento)']) if (reconstruido and not tabela) else None
     if reconstruido:
-        frase[fr[2] if fr else 'nao_localizada'] += 1
-        if not fr:
-            frase_falhou.append(r['ID (site)'])
+        if not tabela:
+            frase[fr[2] if fr else 'nao_localizada'] += 1
+            if not fr:
+                frase_falhou.append(r['ID (site)'])
         passagens.add((cid, par))
     ids_vistos[r['ID (site)']] += 1
     cands[cid]['trechos'].append({
@@ -213,7 +230,7 @@ for r in linhas('registro_completo'):
         'fim': r['Fim'],
         'fraseInicio': fr[0] if fr else None,
         'fraseFim': fr[1] if fr else None,
-        'origem': 'paragrafo' if reconstruido else 'fragmento',
+        'origem': 'tabela' if tabela else ('paragrafo' if reconstruido else 'fragmento'),
         'metaQuantificada': r['Meta quantificada'] or None,
     })
 for c in lista:
@@ -235,7 +252,7 @@ DADOS = {
         {'id': 'mitigacao', 'rotulo': 'Mitigação climática', 'curto': 'Mitigação'},
         {'id': 'adaptacao', 'rotulo': 'Adaptação e eventos extremos', 'curto': 'Adaptação'},
         {'id': 'ar', 'rotulo': 'Poluição do ar', 'curto': 'Poluição do ar'},
-        {'id': 'saude', 'rotulo': 'Impactos do clima na saúde', 'curto': 'Clima e saúde'},
+        {'id': 'saude', 'rotulo': 'Impactos do clima na saúde', 'curto': 'Impactos na saúde'},
     ],
     'naturezas': [
         {'id': 'proposta', 'rotulo': 'Compromisso'},
@@ -248,10 +265,11 @@ DADOS = {
     'candidaturas': lista,
 }
 
-cab = ('/* dados.js — GERADO por tratar_dados.py a partir da base de dados da pesquisadora (versão final de 26/09/2026; corte %s).\n'
+cab = ('/* dados.js — GERADO por tratar_dados.py a partir da base de dados da pesquisadora (versão final de 28/09/2026; corte %s).\n'
        '   Não editar à mão: rode o script de novo quando chegar uma planilha nova.\n'
        '   As contagens (candidatura.contagens) e os trechos (candidatura.trechos) são o registro\n'
-       '   OFICIAL e completo dos 827, com o parágrafo do plano, página e natureza — aba registro_completo.\n'
+       '   OFICIAL e completo dos 815 (827 registrados, 12 desconsiderados pela revisão manual de 28/09),\n'
+       '   com o parágrafo do plano, página e natureza — aba registro_completo.\n'
        '   candidatura.foto: fotos oficiais em site/fotos/ (baixar_fotos.py / aplicar_fotos.py, API TSE). */\n'
        ) % DADOS['dataCorte']
 open(a.saida, 'w', encoding='utf-8').write(cab + 'window.DADOS = ' + json.dumps(DADOS, ensure_ascii=False, indent=1) + ';\n')
@@ -277,6 +295,7 @@ nat = C.Counter(t['natureza'] for t in todos)
 out('Natureza no registro: compromisso %d · relato %d · citação %d · contrário %d   %s' % (nat['proposta'], nat['diagnostico'], nat['mencao'], nat['contrario'],
     ok(all(nat[k] == oficial['natureza'][k] for k in ('proposta', 'diagnostico', 'mencao')) and nat['contrario'] == oficial['natureza']['contrario'])))
 out()
+out('Linhas desconsideradas pela revisão manual (coluna Excluir): %d %s' % (len(excluidos), ok(len(excluidos) == 12)))
 out('Trechos aplicados no site: %d (esperados %d) %s' % (len(todos), oficial['trechos'], ok(len(todos) == oficial['trechos'])))
 dup = [i for i, n in ids_vistos.items() if n > 1]
 out('  ids de trecho repetidos: %s' % (dup or 'nenhum'))
@@ -286,10 +305,11 @@ por_cand_ok = all(len(c['trechos']) == c['contagens']['total'] for c in lista)
 out('  trechos do registro = contagem da candidatura, em todas as 34: %s' % ok(por_cand_ok))
 out('  linhas com tema fora da matriz de 4: %d · não casaram com candidatura: %s' % (sem_tema_valido, nao_casaram or 'nenhuma'))
 out()
-rec = sum(1 for t in todos if t['origem'] == 'paragrafo'); frg = len(todos) - rec
+rec, frg = origem_conta['reconstruido'], origem_conta['fragmento']
 out('Origem do texto: parágrafo reconstruído %d (oficial %d) %s · fragmento registrado %d (oficial %d) %s' % (rec, oficial['paragrafo']['reconstruidos'], ok(rec == oficial['paragrafo']['reconstruidos']), frg, oficial['paragrafo']['fragmentos'], ok(frg == oficial['paragrafo']['fragmentos'])))
 out('Passagens distintas (candidatura + parágrafo): %d (oficial %d) %s' % (len(passagens), oficial['paragrafo']['passagens'], ok(len(passagens) == oficial['paragrafo']['passagens'])))
-out('Frase registrada dentro do parágrafo (para a exibição em três níveis):')
+out('Trechos de tabela (coluna TABELA, sem frase classificada): %d %s  %s' % (len(tabela_ids), ok(len(tabela_ids) == 3), tabela_ids))
+out('Frase registrada dentro do parágrafo (para a exibição em três níveis; exclui trechos de tabela):')
 out('  localizada exata: %d · localizada ignorando espaços: %d · não localizada: %d' % (frase['exata'], frase['espacos'], frase['nao_localizada']))
 if frase_falhou:
     out('  ids sem frase localizada: %s' % ', '.join(frase_falhou))

@@ -10,7 +10,7 @@ Um projeto do [Instituto Ar](https://institutoar.org.br/).
 
 ## O que é
 
-827 trechos extraídos dos planos de governo oficiais registrados no TSE, localizados
+815 trechos extraídos dos planos de governo oficiais registrados no TSE, localizados
 por um dicionário público e versionado de termos (`dados/dicionario.xlsx`)
 e classificados por natureza — compromisso, relato ou citação — em quatro eixos
 temáticos: mitigação climática, adaptação e eventos extremos, poluição do ar, e

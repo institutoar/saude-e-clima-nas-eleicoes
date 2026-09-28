@@ -14,8 +14,8 @@ document.querySelectorAll('[data-fill]').forEach(el => { el.textContent = FILL[e
 
 /* ---------- números ---------- */
 const NUMS = [
-  {n:0, suf:'', t:'dos 827 trechos contesta a mudança do clima ou a ação climática'},
-  {n:6, suf:'', t:'dos 827 trechos fixam meta com número, percentual ou prazo verificável, em quatro dos 34 planos'},
+  {n:0, suf:'', t:'dos 815 trechos contesta a mudança do clima ou a ação climática'},
+  {n:6, suf:'', t:'dos 815 trechos fixam meta com número, percentual ou prazo verificável, em quatro dos 34 planos'},
   {n:79, suf:'%', t:'dos planos mencionam pelo menos um dos quatro temas'},
   {n:12, suf:'%', t:'dos planos tratam dos quatro temas'},
   {n:26, suf:'%', t:'dos planos relacionam clima e saúde; em quatro deles a relação aparece em um compromisso'},
@@ -155,17 +155,24 @@ const histPush = h => { try { history.pushState({modal:true}, '', h); return tru
 const histReplace = (st, h) => { try { history.replaceState(st, '', h); } catch {} };
 
 /* ---------- passagens ----------
-   Cada trecho é um parágrafo do plano. Trechos do mesmo tema e da mesma natureza que dividem o mesmo parágrafo
-   viram um cartão só (todos os termos destacados). Exibição em três níveis: parágrafo inteiro em cor normal,
-   frase classificada com fundo lilás (`.frase`), termo em amarelo (`<mark>`). Sem fundo = a frase classificada
-   não é localizável no parágrafo (ou o trecho é só o fragmento registrado): não afirmamos qual frase foi classificada. */
+   Cada trecho é um parágrafo do plano. "Passagem" = mesmo texto, por igualdade exata (definição da
+   Metodologia): trechos do mesmo tema que dividem o mesmo parágrafo — mesmo com naturezas diferentes —
+   viram um cartão só, com um selo por natureza presente (todos os termos destacados). Isso é chamado dentro
+   de cada seção de tema (agruparPassagens recebe só os trechos daquele tema), então a chave não precisa
+   incluir o tema; inclui texto de tabela (origem 'tabela'), que também é parágrafo reconstruído, só sem
+   frase classificada. Exibição em três níveis: parágrafo inteiro em cor normal, frase classificada com fundo
+   lilás (`.frase`), termo em amarelo (`<mark>`). Sem fundo = a frase classificada não é localizável no
+   parágrafo (ou o trecho é só o fragmento registrado, ou vem de tabela): não afirmamos qual frase foi
+   classificada. Uma mesma passagem que atravessa mais de um tema (19 casos, aba resumo_geral) ainda aparece
+   uma vez em cada seção de tema — o contador "N trechos · M passagens" (renderCorpo) já soma isso certo,
+   contando por texto só, sem tema. */
 const LIMITE_LONGO = 1200;   // acima disso o parágrafo abre recolhido, só com o entorno da frase classificada
 const ORDEM_NAT = D.naturezas.map(n => n.id);
 
 function agruparPassagens(trechos){
   const mapa = new Map(), lista = [];
   trechos.forEach(t => {
-    const k = t.origem === 'paragrafo' ? t.tema + '|' + t.natureza + '|' + t.texto : 'f|' + t.id;
+    const k = (t.origem === 'paragrafo' || t.origem === 'tabela') ? t.texto : 'f|' + t.id;
     let g = mapa.get(k);
     if(!g){ g = {texto:t.texto, trechos:[]}; mapa.set(k, g); lista.push(g); }
     g.trechos.push(t);
@@ -224,7 +231,9 @@ function passagemHTML(g){
   const nats = ORDEM_NAT.filter(n => g.trechos.some(t => t.natureza === n));
   const pags = [...new Set(g.trechos.map(t => t.pagina))].filter(x => x != null).sort((x, y) => x - y);
   const meta = g.trechos.some(t => t.metaQuantificada);
-  return `<article class="tr${longo ? ' longo' : ''}"><p class="tr-txt">${h}</p>${longo ? '<button type="button" class="tr-mais" aria-expanded="false">Ver parágrafo completo</button>' : ''}<div class="tr-meta">${nats.map(n => `<button type="button" class="selo" data-selo="${n}" aria-expanded="false">${NAT[n]}</button>`).join('')}${meta ? `<button type="button" class="selo attr" data-selo="metaQuantificada" aria-expanded="false">${ATR.rotulo}</button>` : ''}<span class="tr-pag">${pags.length > 1 ? 'pp.' : 'p.'} ${pags.join(', ')}</span></div></article>`;
+  const tabela = g.trechos.some(t => t.origem === 'tabela');
+  const nota = tabela ? '<p class="tr-tabela-nota">Trecho extraído de uma tabela do plano; a formatação de colunas não foi preservada na transcrição.</p>' : '';
+  return `<article class="tr${longo ? ' longo' : ''}"><p class="tr-txt">${h}</p>${longo ? '<button type="button" class="tr-mais" aria-expanded="false">Ver parágrafo completo</button>' : ''}${nota}<div class="tr-meta">${nats.map(n => `<button type="button" class="selo" data-selo="${n}" aria-expanded="false">${NAT[n]}</button>`).join('')}${meta ? `<button type="button" class="selo attr" data-selo="metaQuantificada" aria-expanded="false">${ATR.rotulo}</button>` : ''}<span class="tr-pag">${pags.length > 1 ? 'pp.' : 'p.'} ${pags.join(', ')}</span></div></article>`;
 }
 
 function renderNatBar(c){
@@ -274,7 +283,7 @@ function renderCorpo(){
   const doTema = c.trechos.filter(x => (atual.tema === 'todos' ? temas : [atual.tema]).includes(x.tema));
   const mostrados = doTema.length;
   /* passagens = parágrafos distintos entre os trechos mostrados (o mesmo parágrafo em dois temas conta uma vez) */
-  const passagens = new Set(doTema.map(t => t.origem === 'paragrafo' ? t.texto : 'f|' + t.id)).size;
+  const passagens = new Set(doTema.map(t => (t.origem === 'paragrafo' || t.origem === 'tabela') ? t.texto : 'f|' + t.id)).size;
   const un = n => n === 1 ? '1 trecho' : `${n} trechos`;
   const sufixo = passagens < mostrados ? ` · ${passagens === 1 ? '1 passagem' : passagens + ' passagens'}` : '';
   $('cand-status').textContent = (atual.tema === 'todos' ? un(totalTema) : `${mostrados} de ${totalTema} trechos`) + sufixo;

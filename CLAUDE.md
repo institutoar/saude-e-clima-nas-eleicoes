@@ -10,7 +10,7 @@ do site: HTML/CSS/JS estático puro, sem build step, publicado por upload manual
 - `site/styles.css` — todo o CSS.
 - `site/app.js` — toda a lógica (accordion animado, filtros, popups, drawer mobile,
   destaque de termo nos trechos, contagem animada dos números).
-- `site/dados.js` — os 827 trechos + metadados das 34 candidaturas. Define
+- `site/dados.js` — os 815 trechos + metadados das 34 candidaturas. Define
   `window.DADOS`. Gerado a partir de uma planilha-fonte (ver `dados/`), não editar
   os números à mão sem recalcular a partir dela.
 - `site/fotos/` — as 34 fotos oficiais (TSE), nomeadas por id de candidatura
@@ -83,13 +83,16 @@ Botões em uppercase.
 - **Destaque de termo nos trechos**: cada trecho em `dados.js` tem `inicio`/`fim`
   (índices de caractere). Nunca re-buscar a palavra por regex/string match — os
   índices já vêm validados da planilha-fonte.
-- **Trechos no popup do candidato** (`agruparPassagens`/`passagemHTML` em `app.js`): trechos do mesmo tema **e da
-  mesma natureza** que dividem o mesmo parágrafo viram um cartão só (todos os termos destacados; agrupar por
-  natureza evita misturar frases de naturezas diferentes sob os mesmos selos). O cabeçalho diz
-  "N trechos · M passagens" quando M < N (passagem = parágrafo distinto). Exibição em três níveis: parágrafo
-  inteiro em cor normal, **frase classificada com fundo lilás** (`.frase`, token `--frase`), termo em amarelo
-  (`<mark>`). Cartão **sem fundo** = a frase classificada não é localizável (ou o trecho é só o fragmento
-  registrado); nunca afirmar qual frase foi classificada quando não se sabe. Parágrafos acima de 1.200
+- **Trechos no popup do candidato** (`agruparPassagens`/`passagemHTML` em `app.js`): dentro de cada seção de
+  tema, trechos que dividem o mesmo parágrafo (**mesmo texto, por igualdade exata** — definição de "passagem"
+  da Metodologia) viram um cartão só, com um selo por natureza presente (não precisa mais ser a mesma
+  natureza). `agruparPassagens` é chamado por seção de tema, então a chave de agrupamento não inclui o tema; se
+  uma mesma passagem atravessa dois temas (19 casos), ela aparece uma vez em cada seção — o contador abaixo já
+  soma isso certo. O cabeçalho diz "N trechos · M passagens" quando M < N (passagem contada por texto só, sem
+  tema/natureza — bate com o 815/660 oficial). Exibição em três níveis: parágrafo inteiro em cor normal,
+  **frase classificada com fundo lilás** (`.frase`, token `--frase`), termo em amarelo (`<mark>`). Cartão **sem
+  fundo** = a frase classificada não é localizável, ou o trecho é fragmento/tabela (`origem`); nunca afirmar
+  qual frase foi classificada quando não se sabe. Parágrafos acima de 1.200
   caracteres abrem recolhidos, só com o entorno da frase ("Ver parágrafo completo"); o texto escondido usa
   `display:none`, então a busca do navegador não o encontra até expandir. Uma linha no topo explica o fundo
   lilás e avisa que a transcrição é literal do PDF (redação provisória, a confirmar com a equipe).
@@ -111,16 +114,23 @@ Botões em uppercase.
 
 ## Dados
 
-827 trechos, 34 candidaturas (base de 26/09/2026, corte do corpus 22/09; dicionário v3.3). IDs seguem
-`{BR|SP|RS|MA}-{ordem:02d}` e vêm de `dados/fotos/candidatos.json` (lista-mestra que também amarra fotos e
-links `#BR-05`); a base não traz mais a ordem de registro. Cada trecho:
+815 trechos, 34 candidaturas (base final de 28/09/2026, corte do corpus 22/09; dicionário v3.3). A base traz
+827 linhas registradas, das quais 12 foram desconsideradas pela revisão manual da coordenação em 28/09 (coluna
+`Excluir`) — `tratar_dados.py` já filtra essas 12, não editar a lista à mão. IDs seguem `{BR|SP|RS|MA}-{ordem:02d}`
+e vêm de `dados/fotos/candidatos.json` (lista-mestra que também amarra fotos e links `#BR-05`); a base não traz
+mais a ordem de registro. Cada trecho:
 `{id, tema, natureza, pagina, termo, texto, inicio, fim, fraseInicio, fraseFim, origem, metaQuantificada}`.
 - `texto` é o **parágrafo** do plano (não mais uma janela de 260 caracteres); `inicio`/`fim` são o termo do
   dicionário dentro dele.
+- `origem`: `'paragrafo'` (texto reconstruído, 780 trechos), `'fragmento'` (não reconstruído, 35 trechos) ou
+  `'tabela'` (3 trechos — SP-096, SP-097, SP-114 — vieram de uma tabela do plano original; a coluna `TABELA`
+  da base marca quais são. `app.js`/`passagemHTML` nunca mostra frase classificada pra esses e acrescenta o
+  aviso "trecho extraído de uma tabela do plano..." abaixo do texto).
 - `fraseInicio`/`fraseFim`: a frase que foi de fato classificada, dentro do parágrafo (para a exibição em
-  três níveis). Calculada por `tratar_dados.py`; é `null` quando a frase não é localizável (64 casos) e nos
-  36 trechos com `origem: 'fragmento'` (o texto exibido é o fragmento registrado, não o parágrafo).
-- `metaQuantificada`: texto da meta, ou `null`. Vale em 6 trechos.
+  três níveis). Calculada por `tratar_dados.py`; é `null` quando a frase não é localizável (79 casos, entre os
+  reconstruídos), nos 35 trechos com `origem: 'fragmento'` (o texto exibido é o fragmento registrado, não o
+  parágrafo) e nos 3 trechos de tabela (nunca tenta localizar, mesmo quando reconstruído).
+- `metaQuantificada`: texto da meta, ou `null`. Vale em 6 trechos, em 4 candidaturas.
 - Naturezas: `proposta` (Compromisso), `diagnostico` (Relato), `mencao` (Citação); "Contrário" existe com
   valor **0** — é resultado de pesquisa, não ausência de dado.
 O dicionário de recuperação está em `dados/dicionario.xlsx` (v3.3) e a base em
@@ -134,13 +144,19 @@ ou ignora. Vale para o cartão e o popup dos 7 planos sem menção.
 
 ### Pendências conhecidas (não resolver sozinho sem confirmar — perguntar primeiro)
 
-- Aba `graficos` da base de 26/09 (agora atualizada, com os números novos) descreve 7 gráficos de
-  barras horizontais (G01–G07) e 3 tabelas (T01–T03) como "figuras do site", e diz que "verde e vermelho não
-  são usados na exibição de dados". **Nenhum deles está implementado** e o site usa verde em Adaptação
-  (`--t-ada`). Perguntar à equipe se os gráficos entram e se a regra de cores vale para os temas.
-- Situação de registro por candidatura: a base de 26/09 não traz. `INDEFERIDAS` em
-  `dados/tratar_dados.py` lista à mão as 4 candidaturas indeferidas com recurso pendente (PCO no RS, em SP
-  e no MA, e PRTB no MA); as datas das três primeiras são da entrega anterior e a de MA-07 não tem data.
+- Aba `graficos` da base de 28/09 descreve 7 gráficos de barras horizontais (G01–G07) e 3 tabelas (T01–T03)
+  como "figuras do site" — **nenhum deles está implementado** ainda (decisão de escopo pendente com a
+  coordenação). As linhas C01–C04 (exemplos de palavras dos 4 cards de tema) já foram aplicadas em
+  `index.html` na versão corrigida de 28/09 (a de saúde passou por uma reversão e uma correção nesse meio
+  tempo — ver histórico do git se precisar do porquê; o estado atual é o definitivo). A definição do card de
+  saúde (o `<p>` acima da lista) não vem da planilha, foi dada à parte pela equipe. A aba também diz que
+  "verde e vermelho não são usados na exibição de dados", e o site usa verde em Adaptação (`--t-ada`) — troca
+  de cor recomendada pela equipe, decisão pendente com a
+  coordenação.
+- Situação de registro por candidatura: a base não traz uma coluna dedicada, só a nota de texto livre da aba
+  `candidaturas` (mesmas 4 indeferidas de sempre — PCO no RS, em SP e no MA, e PRTB no MA — agora com o motivo
+  de Roberto Rocha confirmado: filiação não comprovada). `INDEFERIDAS` em `dados/tratar_dados.py` continua
+  com a lista manual; as datas das três do PCO são da entrega de 26/09 e a de MA-07 não tem data.
   Confirmar com a equipe antes de mudar.
 - Os 6 números de "Achados principais" (`#numeros`) são **texto fixo no JS** (array
   `NUMS` em `app.js`), vindos da Correção da Nota (seção 4), sem linha de base e sem nota abaixo (removidas de

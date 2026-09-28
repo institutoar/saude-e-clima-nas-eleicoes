@@ -2,24 +2,26 @@ VERIFICAÇÃO — dados.js vs. base de dados (corte 22/09/2026 ~04h42 BRT)
 ============================================================
 Candidaturas: 34 (por disputa: {'pres': 13, 'sp': 6, 'rs': 7, 'ma': 8}) OK
   ids casados com candidatos.json: 34; sem foto em site/fotos: nenhuma
-Soma de trechos por candidatura (aba candidaturas): 827 (oficial: 827) OK
-  mitigacao  trechos 233 / 233 (registro 233)  planos 25 / 25   OK
-  adaptacao  trechos 560 / 560 (registro 560)  planos 27 / 27   OK
+Soma de trechos por candidatura (aba candidaturas): 815 (oficial: 815) OK
+  mitigacao  trechos 226 / 226 (registro 226)  planos 25 / 25   OK
+  adaptacao  trechos 555 / 555 (registro 555)  planos 27 / 27   OK
   ar         trechos  16 /  16 (registro  16)  planos  7 /  7   OK
   saude      trechos  18 /  18 (registro  18)  planos  9 /  9   OK
-Natureza no registro: compromisso 472 · relato 255 · citação 100 · contrário 0   OK
+Natureza no registro: compromisso 467 · relato 255 · citação 93 · contrário 0   OK
 
-Trechos aplicados no site: 827 (esperados 827) OK
+Linhas desconsideradas pela revisão manual (coluna Excluir): 12 OK
+Trechos aplicados no site: 815 (esperados 815) OK
   ids de trecho repetidos: nenhum
-  trechos com inicio/fim válidos dentro do texto (<mark> do termo): 827 / 827 OK
+  trechos com inicio/fim válidos dentro do texto (<mark> do termo): 815 / 815 OK
   trechos do registro = contagem da candidatura, em todas as 34: OK
   linhas com tema fora da matriz de 4: 0 · não casaram com candidatura: nenhuma
 
-Origem do texto: parágrafo reconstruído 791 (oficial 791) OK · fragmento registrado 36 (oficial 36) OK
-Passagens distintas (candidatura + parágrafo): 664 (oficial 664) OK
-Frase registrada dentro do parágrafo (para a exibição em três níveis):
-  localizada exata: 724 · localizada ignorando espaços: 3 · não localizada: 64
-  ids sem frase localizada: BR-001, BR-005, BR-008, BR-014, BR-021, BR-030, BR-066, BR-081, BR-084, BR-097, BR-120, BR-133, BR-142, RS-071, RS-076, RS-101, RS-153, RS-154, RS-185, RS-194, RS-196, RS-199, RS-204, RS-223, RS-227, RS-228, RS-233, RS-235, RS-255, RS-326, RS-341, RS-342, RS-345, RS-348, RS-355, RS-356, RS-370, RS-373, RS-381, RS-389, SP-028, SP-031, SP-040, SP-045, SP-051, SP-057, SP-063, SP-103, MA-004, MA-008, MA-015, MA-018, MA-021, MA-023, MA-030, MA-032, MA-034, MA-036, MA-038, MA-066, MA-067, MA-082, MA-083, MA-085
+Origem do texto: parágrafo reconstruído 780 (oficial 780) OK · fragmento registrado 35 (oficial 35) OK
+Passagens distintas (candidatura + parágrafo): 660 (oficial 660) OK
+Trechos de tabela (coluna TABELA, sem frase classificada): 3 OK  ['SP-096', 'SP-097', 'SP-114']
+Frase registrada dentro do parágrafo (para a exibição em três níveis; exclui trechos de tabela):
+  localizada exata: 697 · localizada ignorando espaços: 2 · não localizada: 79
+  ids sem frase localizada: BR-005, BR-008, BR-014, BR-021, BR-030, BR-034, BR-036, BR-066, BR-073, BR-081, BR-082, BR-084, BR-085, BR-097, BR-132, BR-134, BR-135, BR-136, BR-137, BR-142, BR-152, BR-189, BR-209, RS-071, RS-076, RS-101, RS-153, RS-154, RS-185, RS-194, RS-196, RS-199, RS-204, RS-223, RS-227, RS-228, RS-233, RS-235, RS-255, RS-326, RS-341, RS-342, RS-345, RS-348, RS-355, RS-356, RS-370, RS-373, RS-381, RS-389, SP-028, SP-031, SP-040, SP-045, SP-057, SP-063, SP-065, SP-103, MA-004, MA-008, MA-015, MA-018, MA-021, MA-023, MA-029, MA-030, MA-032, MA-034, MA-036, MA-037, MA-038, MA-066, MA-067, MA-074, MA-082, MA-083, MA-084, MA-085, MA-093
 Metas quantificadas por trecho: 6 (oficial 6) OK  ['BR-087', 'BR-093', 'BR-115', 'SP-011', 'MA-067', 'MA-081']
-Termos sem ocorrência (dicionário v3.3): 41 OK  [a aba da base traz 39, lista de 22/09; não usada]
+Termos sem ocorrência (dicionário v3.3): 41 OK  [a aba da base traz 41, lista de 22/09; não usada]
 Candidaturas marcadas com † (recurso pendente): ['SP-06', 'RS-07', 'MA-07', 'MA-08']
