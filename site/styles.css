@@ -276,6 +276,11 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 .foot-info p + p{margin-top:12px}
 .foot-info a,.foot-info button{color:var(--title);font-weight:700;text-decoration:underline;text-underline-offset:4px;background:none;border:0;padding:0;font-size:15.5px}
 .foot-info a:hover,.foot-info button:hover{color:var(--hero-edge)}
+.foot-info-links{display:flex;flex-direction:column;gap:32px}
+.foot-atualizacao{margin:0 0 0;margin-top:auto;padding-top:12px;color:rgba(21,7,76,.72);font-size:14.5px}
+.foot-ficha-list{margin:0;display:flex;flex-direction:column}
+.foot-ficha-list dt{display:inline;margin:0 6px 0 0;font-weight:700;color:var(--title);font-size:15.5px}
+.foot-ficha-list dd{display:inline;margin:0;color:rgba(21,7,76,.72);font-size:15.5px}
 .foot-bottom{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:32px;border-top:var(--stroke) solid var(--rule-strong);color:rgba(21,7,76,.72);font-size:14.5px}
 .foot-copy{display:inline-flex;flex-wrap:wrap;column-gap:6px}
 .foot-copy>span{white-space:nowrap}
