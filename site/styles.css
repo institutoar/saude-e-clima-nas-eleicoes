@@ -210,7 +210,7 @@ svg[stroke-width]{stroke-width:var(--stroke)}
 .acc-selos{margin:0;display:grid;gap:20px}
 .acc-selo{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:baseline}
 .acc-selo dt{margin:0}
-.acc-selo dd{margin:0;font-size:15px;line-height:1.5}
+.acc-selo dd{margin:0}
 .selo-tag{display:inline-block;padding:3px 11px;border:var(--stroke) solid var(--line-control);border-radius:999px;font-size:13px;font-weight:700;color:var(--mute)}
 .selo-tag.attr{background:rgba(21,7,76,.12)}
 

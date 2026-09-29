@@ -14,7 +14,7 @@ const NUMS = [
   {n:6, suf:'', t:'dos 815 trechos fixam meta com número, percentual ou prazo verificável, em quatro dos 34 planos'},
   {n:79, suf:'%', t:'dos planos mencionam pelo menos um dos quatro temas'},
   {n:12, suf:'%', t:'dos planos tratam dos quatro temas'},
-  {n:26, suf:'%', t:'dos planos relacionam clima e saúde; em quatro deles a relação aparece em um compromisso'},
+  {n:26, suf:'%', t:'dos planos relacionam clima e saúde; em quatro deles a relação aparece como compromisso'},
   {n:7, suf:'', t:'dos 34 planos trazem poluição do ar, em 16 trechos'}
 ];
 
